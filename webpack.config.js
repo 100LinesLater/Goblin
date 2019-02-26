@@ -1,7 +1,7 @@
 var path = require('path');
 
 module.exports = {
-    entry: './frontend/entry.jsx',
+    entry: './frontend/goblin.jsx',
     output: {
         path: path.resolve(__dirname, 'app', 'assets', 'javascripts'),
         filename: './bundle.js',
@@ -20,7 +20,7 @@ module.exports = {
             }
         ]
     },
-    devtool: 'source-map',
+    devtool: 'eval-source-map',
     resolve: {
         extensions: ['.js', '.jsx', '*']
     }
