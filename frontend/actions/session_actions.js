@@ -19,13 +19,19 @@ const receiveErrors = (errors) => ({
 });
 
 export const login = user => dispatch => (
-    apiUtil.login(user).then(res => dispatch(receiveCurrentUser(res)))
+    apiUtil.login(user).
+    then(res => dispatch(receiveCurrentUser(res)), 
+            err => dispatch(receiveErrors(err.responseJSON)))
 );
 
 export const logout = () => dispatch => (
-    apiUtil.logout().then(res => dispatch(logoutCurrentUser(res)))
+    apiUtil.logout().
+    then(res => dispatch(logoutCurrentUser(res)),
+        err => dispatch(receiveErrors(err.responseJSON)))
 );
 
 export const signup = user => dispatch => (
-    apiUtil.signup(user).then(res => dispatch(receiveCurrentUser(res)))
+    apiUtil.signup(user).
+    then(res => dispatch(receiveCurrentUser(res)),
+        err => dispatch(receiveErrors(err.responseJSON)))
 );
