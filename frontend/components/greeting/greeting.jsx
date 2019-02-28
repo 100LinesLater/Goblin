@@ -9,7 +9,8 @@ const Greeting = (props) => {
     );
     const personalGreeting = () => (
         <hgroup className="header-group">
-            <h2 className="header-name">Hi, {props.currentUser.username}!</h2>
+            <h2 className="header-name">
+            Hi, {props.currentUser.first_name} {props.currentUser.last_name}!</h2>
             <button className="header-button" onClick={props.logout}>Log Out</button>
         </hgroup>
     );
