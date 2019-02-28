@@ -28,7 +28,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack --watch --mode=development"
+    "start": "webpack --watch --mode=development",
+    "postinstall": "webpack"
   },
   "repository": {
     "type": "git",
@@ -40,5 +41,9 @@
   "bugs": {
     "url": "https://github.com/100LinesLater/BenchBnB/issues"
   },
-  "homepage": "https://github.com/100LinesLater/BenchBnB#readme"
+  "homepage": "https://github.com/100LinesLater/BenchBnB#readme",
+  "engines": {
+    "node": "10.13.0",
+    "npm": "6.4.1"
+  }
 }
