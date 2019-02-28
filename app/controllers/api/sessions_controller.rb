@@ -10,8 +10,8 @@ class Api::SessionsController < ApplicationController
     end
 
     def destroy
-        user = User.find_by(params[:id])
-        if user.delete
+        if current_user
+            logout
             render json: {}
         else
             render json: ["User must be logged in to perform this action"], status: 404
