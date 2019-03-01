@@ -1,0 +1,104 @@
+// Place all the styles related to the api/sessions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.session {
+    height: 100vh;
+    width: 100%;
+    display: grid; 
+    grid-auto-columns: 1fr 1fr;
+}
+
+.session-image {
+    grid-column: 1;
+    background-size: cover;
+    background-image: url('https://d2ue93q3u507c2.cloudfront.net/assets/generated_assets/94977d34f99015525dcd0fc9987fcbe6.png');
+}
+
+.session-form-container {
+    grid-column: 2;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 53px 1fr;
+    grid-template-rows: 26fr 71fr;  
+}
+
+.session-form {
+    grid-column: 2;
+    grid-row: 2;
+    display: grid;  
+    grid-template-rows: 38px 300px 1fr;
+} 
+
+.session-form > h2 {
+    grid-row: 1;
+    font-size: 25px;
+}
+
+.session-form-inner {
+    font-size: 13px;
+    grid-row: 2;
+    display: block;
+}
+
+.session-form-button {
+    margin-top: 75px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 3px;
+}
+
+.session-form-input {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 90px;
+    padding-left: 20px;
+    border-radius: 5px;
+    background: lightGray;
+    width: 300px;
+    border: 1px solid $black;
+    margin-top: 10px;
+    color: $darkGray;
+}
+
+.session-form-input-name {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 60px;
+    padding-left: 10px;
+    border-radius: 5px;
+    background: lightGray;
+    width: 100px;
+    border: 1px solid $black;
+    margin-top: 10px;
+    margin-right: 65px;
+    color: $darkGray;
+}
+
+.session-form-input-name:hover {
+    background: $darkGray;
+    color: $white;
+}
+
+.session-form-input-name:focus {
+    background: $darkGray;
+    color: $white;
+    border: 1px solid $darkGreen;
+}
+
+.session-form-input:hover {
+    background: $darkGray;
+    color: $white;
+}
+
+.session-form-input:focus {
+    background: $darkGray;
+    color: $white;
+    border: 1px solid $darkGreen;
+}
+
+.session-form-errors {
+    margin-top: 10px;
+}
