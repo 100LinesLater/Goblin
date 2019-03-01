@@ -8,7 +8,7 @@ const Header = (props) => {
                 <div className="logo-image"></div>
                 <h3>Goblin</h3>
             </div>
-            <nav className="login-signup">
+            <nav className="login-signup-buttons">
                 <NavLink className="splash-login-button"
                 to="/login">
                 Log In
@@ -20,17 +20,24 @@ const Header = (props) => {
         </div>
     );
     const personalHeader = () => (
-        <homelinks className="header-group">
-            <NavLink to="/">Home</NavLink>
-            <button
-                className="home-logout-button"
-                onClick={props.logout}>Log Out
-            </button>
+        <div className="nav-bar">
+            <div className="logo-top"></div>
+            <div className="stock-search-bar"></div>
+            <headerlinks className="header-links">
+                <NavLink className="header-home" 
+                to="/">Home
+                </NavLink>
+                <a className="header-account">Account</a>
+                <button
+                    className="home-logout-button"
+                    onClick={props.logout}>Log Out
+                </button>
 
-            {/* <h3 className="header-name">
-            Hi, {props.currentUser.first_name} {props.currentUser.last_name}!
-            </h3>  */}
-        </homelinks>
+                {/* <h3 className="header-name">
+                Hi, {props.currentUser.first_name} {props.currentUser.last_name}!
+                </h3>  */}
+            </headerlinks>
+        </div>
     );
 
     return props.currentUser ? personalHeader() : generalHeader();

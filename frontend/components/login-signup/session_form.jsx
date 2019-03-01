@@ -41,7 +41,7 @@ class SessionForm extends React.Component {
                         placeholder="First Name"
                         value={this.state.first_name}
                         onChange={this.handleInput("first_name")}
-                        />{"  "}<input className="session-form-input-name"
+                        /><input className="session-form-input-name"
                         type="text"
                         placeholder="Last Name"
                         value={this.state.last_name}
