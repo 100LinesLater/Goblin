@@ -15,7 +15,7 @@ class SessionForm extends React.Component {
 
     demoUserFormFill() {
         let demoEmail = '$Money_Man$@Goblin.com'.split('');
-        let demoPass = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1];
+        let demoPass = '0123456789012345678901'.split('');
         let demoEmailTo = "";
         let demoPassTo = "";
 
