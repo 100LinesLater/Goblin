@@ -16,7 +16,6 @@ const App = () => (
             <ProtectedRoute path="/" component={HeaderContainer} />
         </Switch>
 
-        
         {/* <AuthRoute path="/home" component={SplashPageContainer} /> */}
         
     </div>

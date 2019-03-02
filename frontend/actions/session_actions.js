@@ -18,6 +18,11 @@ const receiveErrors = (errors) => ({
     errors
 });
 
+export const removeErrors = (errors = []) => ({
+    type: RECEIVE_SESSION_ERRORS,
+    errors
+});
+
 export const login = user => dispatch => (
     apiUtil.login(user).
     then(res => dispatch(receiveCurrentUser(res)), 

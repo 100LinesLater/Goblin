@@ -7,7 +7,6 @@ span, article, footer, time, small {
   padding: 0;
   border: 0;
   outline: 0;
-  font: inherit;
   font-family: 'Roboto', sans-serif;
   color: $white;
   text-align: inherit;
@@ -27,6 +26,10 @@ img {
   height: auto;
 }
 
+html {
+ box-sizing: border-box;
+}
+
 button {
   /*
   Get rid of native styling. Read more here:
@@ -37,12 +40,4 @@ button {
 
 button {
   cursor: pointer;
-}
-
-/* Clearfix */
-
-.group:after {
-  content: "";
-  display: block;
-  clear: both;
 }

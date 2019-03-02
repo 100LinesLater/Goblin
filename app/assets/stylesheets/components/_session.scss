@@ -42,35 +42,40 @@
 }
 
 .session-form-button {
-    margin-top: 75px;
+    margin-top: 50px;
     padding-left: 50px;
     padding-right: 50px;
     padding-top: 15px;
     padding-bottom: 15px;
     border-radius: 3px;
+    font-size: 13px;
 }
 
 .session-form-input {
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 18px;
+    padding-bottom: 18px;
     padding-right: 90px;
     padding-left: 20px;
     border-radius: 5px;
     background: lightGray;
-    width: 300px;
+    width: 415px;
     border: 1px solid $black;
     margin-top: 10px;
     color: $darkGray;
 }
 
+.session-form-password {
+    margin-bottom: 10px;
+}
+
 .session-form-input-name {
     padding-top: 15px;
     padding-bottom: 15px;
-    padding-right: 60px;
+    padding-right: 30px;
     padding-left: 10px;
     border-radius: 5px;
     background: lightGray;
-    width: 100px;
+    width: 117px;
     border: 1px solid $black;
     margin-top: 10px;
     margin-right: 65px;
@@ -80,25 +85,31 @@
 .session-form-input-name:hover {
     background: $darkGray;
     color: $white;
+    border: 1px solid $white;
 }
 
 .session-form-input-name:focus {
     background: $darkGray;
     color: $white;
-    border: 1px solid $darkGreen;
+    border: 1px solid $green;
 }
 
 .session-form-input:hover {
     background: $darkGray;
     color: $white;
+    border: 1px solid $white;
 }
 
 .session-form-input:focus {
     background: $darkGray;
     color: $white;
-    border: 1px solid $darkGreen;
+    border: 1px solid $green;
 }
 
 .session-form-errors {
     margin-top: 10px;
+}
+
+.demo-login {
+    color: $green;
 }

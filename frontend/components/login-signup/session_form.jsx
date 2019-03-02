@@ -1,15 +1,45 @@
 import React from 'react';
-import {Link, withRouter} from 'react-router-dom';
-import HeaderContainer from '../header/header_container';
+import {NavLink, withRouter} from 'react-router-dom';
 
 let login = {email: '', password: ''};
 let signup = {first_name: '', last_name: '', email: '', password: '', buying_power: 0};
+let demoEmail = '$Money_Man$@Goblin.com'.split('');
+let demoPass = [0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1];
+let demoEmailTo = "";
+let demoPassTo = "";
+let demo;
 
 class SessionForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = this.props.formType === 'Sign Up' ? signup : login;
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.demoUserFormFill = this.demoUserFormFill.bind(this);
+    }
+
+    demoUserFormFill() {
+        let i = 0;
+        const x = demoEmail.length;
+        demo = setInterval(() => {
+            if (i === x + 10) {
+                document.getElementById('session-form-submit').click();
+            } 
+            else if (i < x){
+                i++;
+                demoEmailTo += demoEmail.shift();
+                demoPassTo += demoPass.shift();
+                this.setState({email: demoEmailTo});
+                this.setState({password: demoPassTo});
+            }
+            else {
+                i++;
+            }
+        }, 200);
+    }
+
+    componentWillUnmount() {
+        this.props.removeErrors();
+        clearInterval(demo);
     }
 
     handleInput(type) {
@@ -22,7 +52,7 @@ class SessionForm extends React.Component {
         e.preventDefault();
         const user = Object.assign({}, this.state);
         this.props.processForm(user);
-        
+        this.props.removeErrors();
     }
 
     render () {
@@ -65,16 +95,21 @@ class SessionForm extends React.Component {
                 <div className="session-form-pass">
                 <label> Password: 
                     <br></br>
-                <input className="session-form-input"
+                <input className="session-form-input session-form-password"
                     type="password"
                     value={this.state.password}
                     onChange={this.handleInput("password")}
                     />
                 </label>
                 </div>
-                <div className="session-form-demo-link">
-                    <Link to="/demo-login">Have Goblins stolen your password? Try our demo login.</Link>
-                </div>
+                { this.props.formType === 'Sign In' ?
+                (<div className="session-form-demo-link">
+                    Have Goblins stolen your password? Try our <a 
+                    className="demo-login"
+                    onClick={this.demoUserFormFill}>
+                    demo login
+                    </a>.
+                </div>) : ("")}
                 <br></br>
                 {this.props.errors.length > 0 ? (
                     <div className="session-form-errors">
@@ -86,7 +121,10 @@ class SessionForm extends React.Component {
                     </div>) : ("")
                 }
                 <br></br>
-                <button className="session-form-button">{this.props.formType}</button>
+                <button id="session-form-submit" 
+                className="session-form-button">
+                    {this.props.formType}
+                </button>
             </form>
                     </div>
                 </div>

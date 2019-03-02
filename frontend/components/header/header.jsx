@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 
 const Header = (props) => (
     <div className="nav-bar">
-        <div className="logo-top"></div>
+        <NavLink className="logo-top" to="/"></NavLink>
         <div className="stock-search-bar">
             <span class="fa fa-search"></span>
             <input className="search-bar-input"
