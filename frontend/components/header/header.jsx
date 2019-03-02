@@ -5,12 +5,12 @@ const Header = (props) => (
     <div className="nav-bar">
         <NavLink className="logo-top" to="/"></NavLink>
         <div className="stock-search-bar">
-            <span class="fa fa-search"></span>
+            <span className="fa fa-search"></span>
             <input className="search-bar-input"
                 type="text"
                 placeholder="Search" />
         </div>
-        <headerlinks className="header-links">
+        <span className="header-links">
             <NavLink className="header-home"
                 to="/">Home
                 </NavLink>
@@ -26,7 +26,7 @@ const Header = (props) => (
             {/* <h3 className="header-name">
                 Hi, {props.currentUser.first_name} {props.currentUser.last_name}!
                 </h3>  */}
-        </headerlinks>
+        </span>
     </div>
 );
 

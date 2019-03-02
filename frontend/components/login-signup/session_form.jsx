@@ -3,10 +3,6 @@ import {NavLink, withRouter} from 'react-router-dom';
 
 let login = {email: '', password: ''};
 let signup = {first_name: '', last_name: '', email: '', password: '', buying_power: 0};
-let demoEmail = '$Money_Man$@Goblin.com'.split('');
-let demoPass = [0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1];
-let demoEmailTo = "";
-let demoPassTo = "";
 let demo;
 
 class SessionForm extends React.Component {
@@ -18,6 +14,11 @@ class SessionForm extends React.Component {
     }
 
     demoUserFormFill() {
+        let demoEmail = '$Money_Man$@Goblin.com'.split('');
+        let demoPass = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1];
+        let demoEmailTo = "";
+        let demoPassTo = "";
+
         let i = 0;
         const x = demoEmail.length;
         demo = setInterval(() => {
@@ -34,7 +35,7 @@ class SessionForm extends React.Component {
             else {
                 i++;
             }
-        }, 200);
+        }, 110);
     }
 
     componentWillUnmount() {

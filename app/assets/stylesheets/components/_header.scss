@@ -58,17 +58,18 @@
     margin-bottom: 5px;
     margin-right: 50px;
     justify-content: space-between;
+    background: $black;
 }
 
 .header-account {
     margin-right: 10px;
     cursor: pointer;
-    background: inherit;
+    background: $black;
 }
 
 .header-home {
     margin-right: 10px;
-    background: inherit;
+    background: $black;
 }
 
 .header-home:hover {
