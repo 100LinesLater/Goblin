@@ -12,4 +12,18 @@
 #
 
 class Transaction < ApplicationRecord
+    validates :user_id, :stock_id, :stock_difference, :transaction_date, presence: true
+    validates :transaction_date, uniqueness: true
+
+    belongs_to :user,
+        foreign_key: :user_id, 
+        class_name: :User 
+
+    belongs_to :stock,
+        foreign_key: :stock_id, 
+        class_name: :Stock 
+
+    has_many :portfolios, 
+        through: :stock, 
+        source: :portfolios
 end

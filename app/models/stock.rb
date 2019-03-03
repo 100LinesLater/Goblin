@@ -9,4 +9,21 @@
 #
 
 class Stock < ApplicationRecord
+    validates :ticker, presence: true, uniqueness: true
+
+    has_many :transactions, 
+        foreign_key: :stock_id,
+        class_name: :Transaction
+
+    has_many :portfolios, 
+        foreign_key: :stock_id,
+        class_name: :Portfolio
+
+    has_many :watchlists, 
+        foreign_key: :stock_id,
+        class_name: :Watchlist
+
+    has_many :users, 
+        through: :portfolios, 
+        source: :Portfolio
 end
