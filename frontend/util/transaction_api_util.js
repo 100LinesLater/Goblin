@@ -1,9 +1,8 @@
 // Stocks
-export const fetchStock = stock => (
+export const fetchStock = id => (
     $.ajax({
         method: 'GET',
-        url: `/api/stocks/${stock.id}`,
-        data: { stock }
+        url: `/api/stocks/${id}`,
     })
 );
 export const createStock = stock => (
