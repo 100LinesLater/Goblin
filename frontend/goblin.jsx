@@ -2,9 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import configureStore from './store/store';
 import Root from './components/root';
+import * as util from './util/external_api_util';
 
 document.addEventListener("DOMContentLoaded", () => {
     const rootEl = document.getElementById('root');
+
+    // Test
+        window.fetchChart = util.fetchChart;
+        window.fetchChartWithDate = util.fetchChartWithDate;
+        window.fetchGeneralNews = util.fetchGeneralNews;
+        window.fetchStockStats = util.fetchStockStats;
+    // End Test
 
     let store;
     if (window.currentUser) {
