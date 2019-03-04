@@ -1,0 +1,1 @@
+json.extract! @transactions, :id, :user_id, :stock_id, :stock_difference, :transaction_date

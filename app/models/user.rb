@@ -21,13 +21,20 @@ class User < ApplicationRecord
 
     after_initialize :ensure_session_token
 
-    has_one :portfolio
-    has_one :watchlist
+    has_many :portfolio_stocks,
+        foreign_key: :user_id, 
+        class_name: :Portfolio
+
+    has_many :watchlist_stocks,
+        foreign_key: :user_id, 
+        class_name: :Watchlist
+
     has_many :transactions, 
         foreign_key: :user_id,
         class_name: :Transaction 
+
     has_many :stocks,
-        through: :portfolio,
+        through: :portfolio_stocks,
         source: :stocks 
 
     def self.find_by_credentials(email, password)
