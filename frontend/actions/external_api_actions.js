@@ -19,7 +19,7 @@ export const getChartDataWithTag = (ticker, timeTag) => dispatch => (
 );
 
 export const getChartDataWithDate = (ticker, date) => dispatch => (
-    externalAPIUtil.fetchChart(ticker, date)
+    externalAPIUtil.fetchChartWithDate(ticker, date)
         .then(res => dispatch(receiveChartData(res.responseJSON)))
 );
 

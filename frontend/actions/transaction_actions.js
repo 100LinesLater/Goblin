@@ -61,7 +61,7 @@ export const fetchTransactions = () => dispatch => (
         .then(txs => dispatch(receiveTransactions(txs)))
 );
 
-export const fetchTransaction = (tx) => dispatch => (
-    transactionUtil.fetchTransaction(tx)
+export const createTransaction = (tx) => dispatch => (
+    transactionUtil.createTransaction(tx)
         .then(tx => dispatch(receiveTransaction(tx)))
 );
