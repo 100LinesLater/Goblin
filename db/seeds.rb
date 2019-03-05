@@ -7,13 +7,15 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 User.destroy_all
 Stock.destroy_all
+Portfolio.destroy_all
+Transaction.destroy_all
 
 user1 = User.create(last_name: "Man", first_name: "Money", email: "$Money_Man$@Goblin.com",
     password: "0123456789012345678901", buying_power: 10000)
 
-stock1 = Stock.create(ticker: "goog")
-stock2 = Stock.create(ticker: "vw")
-stock3 = Stock.create(ticker: "aapl")
+stock1 = Stock.create(ticker: "GOOG")
+stock2 = Stock.create(ticker: "VW")
+stock3 = Stock.create(ticker: "AAPL")
 
 port1 = Portfolio.create(user_id: user1.id, stock_id: stock1.id, num_shares: 20)
 port2 = Portfolio.create(user_id: user1.id, stock_id: stock2.id, num_shares: 10)

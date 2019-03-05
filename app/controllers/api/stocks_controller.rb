@@ -4,7 +4,7 @@ class Api::StocksController < ApplicationController
     end
 
     def create
-        @stock = Stock.new(ticker: params[:stock][:ticker])
+        @stock = Stock.new(ticker: params[:stock][:ticker].upcase)
         if @stock.save
             render :show
         end

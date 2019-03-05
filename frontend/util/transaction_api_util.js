@@ -29,8 +29,8 @@ export const createPortfolio = portfolio => (
 );
 export const updatePortfolio = portfolio => (
     $.ajax({
-        method: 'UPDATE',
-        url: `/api/portfolio/${portfolio.id}`,
+        method: 'PATCH',
+        url: `/api/portfolios/${portfolio.id}`,
         data: {portfolio}
     })
 );

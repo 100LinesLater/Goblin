@@ -4,7 +4,6 @@ class Api::PortfoliosController < ApplicationController
     end
 
     def create
-        debugger
         @portfolio = Portfolio.new(portfolio_params)
         if @portfolio.save
             render :index
@@ -14,8 +13,8 @@ class Api::PortfoliosController < ApplicationController
     end
 
     def update
-        @portfolio = Portfolio.find_by(user_id: params[:user_id], stock_id: params[:stock_id])
-        if @portfolio.update_resources(portfolio_params)
+        @portfolio = Portfolio.find_by(user_id: params[:portfolio][:user_id], stock_id: params[:portfolio][:stock_id])
+        if @portfolio.update(portfolio_params)
             render :index
         else
             render json: @portfolio.errors.full_messages, status: 401

@@ -16,6 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
         window.createStock = transactionUtil.createStock;
         window.createPortfolio = transactionUtil.createPortfolio;
         window.fetchPortfolios = transactionUtil.fetchPortfolios;
+        window.updatePortfolio = transactionUtil.updatePortfolio;
+        window.fetchTransactions = transactionUtil.fetchTransactions;
+        window.createTransaction = transactionUtil.createTransaction;
+
     // End Test
 
     let store;
