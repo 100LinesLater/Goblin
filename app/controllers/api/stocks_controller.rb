@@ -1,10 +1,10 @@
 class Api::StocksController < ApplicationController
     def show
-        @stock = Stock.find_by(ticker: params[:ticker])
+        @stock = Stock.find_by(ticker: params[:id])
     end
 
     def create
-        @stock = Stock.new(params[:stock][:ticker])
+        @stock = Stock.new(ticker: params[:stock][:ticker])
         if @stock.save
             render :show
         end

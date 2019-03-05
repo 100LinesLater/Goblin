@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Test
         window.fetchChart = util.fetchChart;
         window.fetchChartWithDate = util.fetchChartWithDate;
-        
+
         window.fetchStock = transactionUtil.fetchStock;
         window.createStock = transactionUtil.createStock;
         window.createPortfolio = transactionUtil.createPortfolio;

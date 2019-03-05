@@ -4,6 +4,7 @@ class Api::PortfoliosController < ApplicationController
     end
 
     def create
+        debugger
         @portfolio = Portfolio.new(portfolio_params)
         if @portfolio.save
             render :index
@@ -13,8 +14,7 @@ class Api::PortfoliosController < ApplicationController
     end
 
     def update
-        @portfolio = Portfolio.find_by(params[:portfolio][:user_id], params[:portfolio][:stock_id])
-        @portfolio.num_shares += params[:portfolio][:num_shares]
+        @portfolio = Portfolio.find_by(user_id: params[:user_id], stock_id: params[:stock_id])
         if @portfolio.update_resources(portfolio_params)
             render :index
         else
