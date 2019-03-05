@@ -7,7 +7,7 @@ class PortfolioChart extends React.Component {
     }
 
     render() {
-        const data = this.props.getChartDataWithDate('GOOG','20190301');
+        const data = this.props.getChartDataWithTag('GOOG','3m');
         const renderLineChart = (
             <LineChart width={400} height={400} data={data}>
                 <Line type="monotone" dataKey="close" stroke="#8884d8" />
