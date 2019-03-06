@@ -2,11 +2,13 @@ import React, {Fragment, Suspense} from 'react';
 import {Route, Switch} from 'react-router-dom';
 import {AuthRoute, ProtectedRoute} from '../util/route-util';
 
+import {CircleLoader} from 'react-spinners';
+
 import SplashPageContainer from './splash/splash_page_container';
 import HeaderContainer from './header/header_container';
 import LoginFormContainer from './login-signup/login_form_container';
 import SignupFormContainer from './login-signup/signup_form_container';
-import HomePageContainer from './home-page/portfolio-chart/portfolio_chart_container';
+import HomePageContainer from './home-page/home_page_container';
 
 const App = () => (
     <div>
@@ -18,7 +20,7 @@ const App = () => (
         </Switch>
 
         <Fragment >
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<CircleLoader />}>
                 <ProtectedRoute exact path="/" component={HomePageContainer} />
             </Suspense>
         </Fragment>
