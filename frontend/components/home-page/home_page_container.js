@@ -3,7 +3,7 @@ import HomePage from './home_page';
 import {
     fetchTransactions, createTransaction,
     createPortfolio, fetchPortfolios,
-    updatePortfolio
+    updatePortfolio, fetchStocks
 } from '../../actions/transaction_actions';
 // import {getChartDataWithTag} from '../../../actions/external_api_actions';
 
@@ -12,9 +12,11 @@ const mSTP = state => ({
     portfolios: state.entities.portfolios.filter(port => {
         if (port.user_id === state.session.id) return port;
     }),
+    stocks: state.entities.stocks,
 });
 
 const mDTP = dispatch => ({
+    fetchStocks: () => dispatch(fetchStocks()),
     fetchTransactions: () => dispatch(fetchTransactions()),
     createTransaction: tx => dispatch(createTransaction(tx)),
     fetchPortfolios: () => dispatch(fetchPortfolios()),

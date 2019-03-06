@@ -1,11 +1,13 @@
-import {RECEIVE_STOCK} from '../actions/transaction_actions';
+import {RECEIVE_STOCK, RECEIVE_STOCKS} from '../actions/transaction_actions';
 import merge from 'lodash';
 
 const stockReducer = (oldState = {}, action) => {
     Object.freeze(oldState);
     switch (action.type) {
+        case RECEIVE_STOCKS:
+            return merge({}, action.stocks);
         case RECEIVE_STOCK:
-            return merge({}, action.stock);
+            return merge({}, oldState, {[action.stock.id]: action.stock});
         default:
             return oldState;
     }

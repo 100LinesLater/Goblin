@@ -13,15 +13,15 @@
 class Portfolio < ApplicationRecord
     validates :user_id, :stock_id, :num_shares, presence: true
 
-    belongs_to :users, 
+    belongs_to :user, 
         foreign_key: :user_id,
         class_name: :User 
 
-    belongs_to :stocks,
+    belongs_to :stock,
         foreign_key: :stock_id,
         class_name: :Stock
 
     has_many :transactions, 
-        through: :stocks, 
+        through: :stock, 
         source: :transactions
 end

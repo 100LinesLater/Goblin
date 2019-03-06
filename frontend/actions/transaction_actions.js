@@ -1,10 +1,16 @@
 import * as transactionUtil from '../util/transaction_api_util';
 
+export const RECEIVE_STOCKS = "RECEIVE_STOCKS";
 export const RECEIVE_STOCK = "RECEIVE_STOCK";
 export const RECEIVE_PORTFOLIOS = "RECEIVE_PORTFOLIOS";
 export const RECEIVE_PORTFOLIO = "RECEIVE_PORTFOLIO";
 export const RECEIVE_TRANSACTIONS = "RECEIVE_TRANSACTIONS";
 export const RECEIVE_TRANSACTION = "RECEIVE_TRANSACTION";
+
+const receiveStocks = stocks => ({
+    type: RECEIVE_STOCKS,
+    stocks
+});
 
 const receiveStock = stock => ({
     type: RECEIVE_STOCK,
@@ -31,9 +37,9 @@ const receiveTransaction = transaction => ({
     transaction
 });
 
-export const fetchStock = (ticker) => dispatch => (
-    transactionUtil.fetchStock(ticker)
-        .then(stock => dispatch(receiveStock(stock)))
+export const fetchStocks = () => dispatch => (
+    transactionUtil.fetchStocks()
+        .then(stocks => dispatch(receiveStocks(stocks)))
 );
 
 export const createStock = (stock) => dispatch => (

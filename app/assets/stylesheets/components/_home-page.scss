@@ -1,0 +1,76 @@
+.home-page-main {
+    display: grid;
+    grid-template-columns: 4.8fr 15fr 1.8fr 6.4fr 4.6fr;
+    grid-template-rows: 50px 4fr 4.2fr 1.8fr;
+}
+
+//Chart
+.portfolio-chart-main {
+    grid-row: 2;
+    grid-column: 2;
+    margin: 0;
+}
+
+.portfolio-chart-price h3 {
+    font-size: 13px;
+}
+
+.portfolio-chart-time-tags {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: horizontal;
+}
+
+.portfolio-chart-time-tags li{
+    margin-right: 25px;
+    font-size: 14px;
+}
+
+//Sidebar
+.portfolio-sidebar-main {
+    grid-row: 2 / 4;
+    grid-column: 4;
+    display: block;
+    box-shadow: 1px 0px 49px -1px rgba(0,0,0,0.75);
+}
+
+.portfolio-sidebar-title {
+    height: 35px;
+    border-bottom: 1px solid $black;
+}
+
+.portfolio-sidebar-title > p{
+    font-size: 16px;
+    margin-left: 25px;
+    margin-top: 15px;
+}
+
+.portfolio-stock-entry {
+    height: 50px;
+    display: flex;
+    flex-direction: horizontal;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $black;
+}
+
+.portfolio-stock-entry:hover {
+    background: $black;
+}
+
+.portfolio-stock-and-shares {
+    background: inherit;
+    font-size: 15px;
+}
+
+.p1, .p2{
+    background: inherit;
+}
+
+.p2 {
+    font-size: 13px;
+}
+
+.portfolio-stock-daily-chart {
+    background: inherit;
+}
