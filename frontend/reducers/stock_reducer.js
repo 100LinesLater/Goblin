@@ -1,5 +1,5 @@
 import {RECEIVE_STOCK, RECEIVE_STOCKS} from '../actions/transaction_actions';
-import merge from 'lodash';
+import {merge} from 'lodash';
 
 const stockReducer = (oldState = {}, action) => {
     Object.freeze(oldState);

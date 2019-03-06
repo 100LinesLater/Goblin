@@ -17,16 +17,11 @@ export const fetchChartWithDate = (ticker, date) => (
 );
 
 // Finance News
-export const fetchGeneralNews = () => (
+export const fetchNews = () => (
     $.ajax({
         method: 'GET',
-        url: `${pathStart}/stock/market/news/last/10`
-    })
-);
-export const fetchStockNews = (ticker) => (
-    $.ajax({
-        method: 'GET',
-        url: `${pathStart}/stock/${ticker}/news/last/10`
+        url: `https://newsapi.org/v2/top-headlines?sources=financial-times&apiKey=
+        f5b8533f8aaf4c5d93b5668c4fec1a28`
     })
 );
 

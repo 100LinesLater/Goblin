@@ -1,6 +1,7 @@
 import React from 'react';
 import { fetchChart } from '../../util/external_api_util';
 import PortfolioChart from './portfolio-chart';
+import PortfolioStockChart from './portfolio-stock-chart';
 
 class HomePage extends React.Component {
 
@@ -42,10 +43,10 @@ class HomePage extends React.Component {
                         color={this.state.color}
                     />
                     <ul className="portfolio-chart-time-tags">
-                        <li>{'1M'}</li>
-                        <li>{'3M'}</li>
-                        <li>{'6M'}</li>
-                        <li>{'1Y'}</li>
+                        <a>{'1M'}</a>
+                        <a>{'3M'}</a>
+                        <a>{'6M'}</a>
+                        <a>{'1Y'}</a>
                     </ul>
                 </div>
                 
@@ -56,18 +57,20 @@ class HomePage extends React.Component {
                     {this.props.portfolios.filter( port => 
                         port.num_shares > 0
                     ).map( (port, idx) => {
-                        const ticker = `entry${idx}`;
                         return (
                         <a className="portfolio-stock-entry"
-                        href={`/stocks/${ticker}`}
+                        href={`/stocks/${port.ticker}`}
                         key={idx}
                         >
                             <div className="portfolio-stock-and-shares">
-                                <p className="p1">{`entry${idx}`}</p>  
+                                    <p className="p1">{port.ticker}</p>  
                                 <p className="p2">{`${port.num_shares} shares`}</p>
                             </div>
                             <div className="portfolio-stock-daily-chart">
-                                {`--Graph Here--`}
+                                <PortfolioStockChart 
+                                ticker={port.ticker}
+
+                                />
                             </div>
                             <div className="portfolio-stock-price">
                                 {`$50.${51 + idx}`}
@@ -80,7 +83,6 @@ class HomePage extends React.Component {
                         //Ask how to get entities state to look like sample state.
                         //Maybe user_id: [{user_id, stock_id, num_shares},
                         //                {user_id, stock_id, num_shares}]
-                        //Change how we fetch portfolios to get current user id.
                     })
                     }
                 </div>
