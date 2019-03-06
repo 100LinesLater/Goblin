@@ -1,5 +1,5 @@
 import React from 'react';
-import { fetchChart } from '../../util/external_api_util';
+import { fetchChart, fetchNews } from '../../util/external_api_util';
 import PortfolioChart from './portfolio-chart';
 import PortfolioStockChart from './portfolio-stock-chart';
 
@@ -9,6 +9,7 @@ class HomePage extends React.Component {
         super(props);
         this.state = {
             data: null,
+            newsData: null,
             price: 0,
             color: null,
             numDays: 60,
@@ -28,6 +29,7 @@ class HomePage extends React.Component {
                         "#f1563a" : "#30cd9a"]
             }
             ));
+        fetchNews().then(res => this.setState({ newsData: res}));
     }
 
     render() {
@@ -43,10 +45,10 @@ class HomePage extends React.Component {
                         color={this.state.color}
                     />
                     <ul className="portfolio-chart-time-tags">
-                        <a>{'1M'}</a>
-                        <a>{'3M'}</a>
-                        <a>{'6M'}</a>
-                        <a>{'1Y'}</a>
+                        <li>{'1M'}</li>
+                        <li>{'3M'}</li>
+                        <li>{'6M'}</li>
+                        <li>{'1Y'}</li>
                     </ul>
                 </div>
                 
@@ -69,7 +71,7 @@ class HomePage extends React.Component {
                             <div className="portfolio-stock-daily-chart">
                                 <PortfolioStockChart 
                                 ticker={port.ticker}
-
+                                
                                 />
                             </div>
                             <div className="portfolio-stock-price">

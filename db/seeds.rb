@@ -18,7 +18,7 @@ stock2 = Stock.create(ticker: "VW")
 stock3 = Stock.create(ticker: "AAPL")
 
 port1 = Portfolio.create(user_id: user1.id, stock_id: stock1.id, num_shares: 20)
-port2 = Portfolio.create(user_id: user1.id, stock_id: stock2.id, num_shares: 10)
+port2 = Portfolio.create(user_id: user1.id, stock_id: stock3.id, num_shares: 10)
 
 tx1 = Transaction.create(user_id: user1.id, stock_id: stock1.id, stock_difference: 20, transaction_date: "2019-02-01")
 tx2 = Transaction.create(user_id: user1.id, stock_id: stock2.id, stock_difference: 20, transaction_date: "2019-02-05")

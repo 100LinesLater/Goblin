@@ -20,8 +20,7 @@ export const fetchChartWithDate = (ticker, date) => (
 export const fetchNews = () => (
     $.ajax({
         method: 'GET',
-        url: `https://newsapi.org/v2/top-headlines?sources=financial-times&apiKey=
-        f5b8533f8aaf4c5d93b5668c4fec1a28`
+        url: `https://newsapi.org/v2/top-headlines?sources=financial-times&apiKey=f5b8533f8aaf4c5d93b5668c4fec1a28`
     })
 );
 

@@ -7,7 +7,7 @@ class PortfolioStockChart extends React.Component {
         super(props);
 
         this.state = {
-            data: null,
+            data: [2,3,1,5,2],
             color: null,
         };
     }
