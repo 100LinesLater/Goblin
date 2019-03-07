@@ -7,7 +7,7 @@
 }
 
 .buy-sell-option {
-    margin-top: 10px;
+    margin-top: 20px;
     margin-left: 20px;
     font-size: 20px;
 }
@@ -25,20 +25,25 @@
 }
 
 .stock-shares-input {
-    margin-top: 20px;
+    margin-top: 30px;
     margin-left: 20px;
+}
+
+.stock-shares-input > label {
+    font-size: 15px;
 }
 
 .stock-shares-input > label > input {
     background: $black;
-    margin-left: 50px;
-    padding: 5px 5px;
+    margin-left: 70px;
+    padding: 5px 10px;
     width: 80px;
     height: 30px;
     color: $white;
     cursor: text;
     text-align: right;
-    font-size: 13px;
+    font-size: 15px;
+    border-radius: 4px;
 }
 
 .stock-shares-input > label > input:hover {
@@ -47,4 +52,44 @@
 
 .stock-shares-input > label > input:focus {
     border: 1px solid lightgray;
+}
+
+.stock-market-price {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 35px;
+}
+
+.market-price-word {
+    margin-left: 20px;
+    font-size: 15px;
+}
+
+.market-price-price {
+    margin-right: 30px;
+    font-size: 15px;
+}
+
+.estimated-cost {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+.estimated-cost-word {
+    margin-left: 20px;
+    font-size: 15px;
+}
+
+.estimated-cost-cost {
+    margin-right: 30px;
+    font-size: 15px;
+}
+
+.place-order-btn {
+    margin-left: 20px;
+    margin-top: 35px;
+    padding: 17.5px 80px;
+    font-size: 15px;
+    border-radius: 4px;
 }

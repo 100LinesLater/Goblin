@@ -14,6 +14,7 @@ class HomePage extends React.Component {
             color: null,
             ticker: 'goog',
             interval: '3m',
+            currentPrice: 0
         };
     }
 
@@ -30,6 +31,19 @@ class HomePage extends React.Component {
             ));
     }
 
+    componentDidUpdate(_prevProps, prevState) {
+        if (prevState.interval !== this.state.interval) {
+            fetchChart(this.state.ticker, this.state.interval)
+                .then(res => this.setState({ data: res }))
+                .then(res => this.setState({
+                    color: [
+                        (this.state.data[this.state.data.length - 1].close < this.state.data[0].close) ?
+                            "#f1563a" : "#30cd9a"]
+                }
+                ));
+        }
+    }
+
     render() {
         return (
             <div className="home-page-main">
@@ -37,17 +51,17 @@ class HomePage extends React.Component {
 
                 <div className="portfolio-chart-main">
                     <div className="portfolio-chart-price">
-                        <h1>{'$50.31'}</h1>
+                        <h1>${this.state.currentPrice.toFixed(2)}</h1>
                     </div>
                     <PortfolioChart className="portfolio-chart-chart"
                         data={this.state.data} 
                         color={this.state.color}
                     />
                     <div className="portfolio-chart-time-tags">
-                        <li><a>{'1M'}</a></li>
-                        <li><a>{'3M'}</a></li>
-                        <li><a>{'6M'}</a></li>
-                        <li><a>{'1Y'}</a></li>
+                        <li><a onClick={() => this.onChangeInterval('1D')}>{'1D'}</a></li>
+                        <li><a onClick={() => this.onChangeInterval('1M')}>{'1M'}</a></li>
+                        <li><a onClick={() => this.onChangeInterval('3M')}>{'3M'}</a></li>
+                        <li><a onClick={() => this.onChangeInterval('1Y')}>{'1Y'}</a></li>
                     </div>
                 </div>
                 

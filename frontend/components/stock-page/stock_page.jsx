@@ -13,9 +13,9 @@ class StockPage extends React.Component {
             price: 0,
             color: null,
             ticker: this.props.ticker,
-            interval: '3m',
+            interval: '1Y',
             buyOrSell: 'Buy',
-            buySellStockAmt: 10,
+            buySellStockAmt: 0,
             currentPrice: 0,
         };
     }
@@ -34,23 +34,25 @@ class StockPage extends React.Component {
             ));
     }
 
-    // componentDidUpdate() {
-    //     fetchChart(this.state.ticker, this.state.interval)
-    //         .then(res => this.setState({ data: res }))
-    //         .then(res => this.setState({
-    //             color: [
-    //                 (this.state.data[this.state.data.length - 1].close < this.state.data[0].close) ?
-    //                     "#f1563a" : "#30cd9a"]
-    //         }
-    //         ));
-    // }
+    componentDidUpdate(_prevProps, prevState) {
+        if (prevState.interval !== this.state.interval) {
+        fetchChart(this.state.ticker, this.state.interval)
+            .then(res => this.setState({ data: res }))
+            .then(res => this.setState({
+                color: [
+                    (this.state.data[this.state.data.length - 1].close < this.state.data[0].close) ?
+                        "#f1563a" : "#30cd9a"]
+            }
+            ));
+        }
+    }
 
-    // onChangeInterval(value) {
-    //     this.setState({interval: value});
-    // }
+    onChangeInterval(value) {
+        this.setState({interval: value});
+    }
 
-    onInputChange(e) {
-        this.setState({buySellStockAmt: e.target.value});
+    onInputChange() {
+        return e => this.setState({buySellStockAmt: e.currentTarget.value});
     }
 
     render() {
@@ -63,45 +65,49 @@ class StockPage extends React.Component {
 
                 <div className="portfolio-chart-main">
                     <div className="portfolio-chart-price">
-                        <h1>{'$50.31'}</h1>
+                        <h1>${this.state.currentPrice.toFixed(2)}</h1>
                     </div>
                     <PortfolioChart className="portfolio-chart-chart"
                         data={this.state.data}
                         color={this.state.color}
                     />
                     <div className="stock-chart-time-tags">
-                        <li><a>{'1D'}</a></li>
-                        <li><a>{'1M'}</a></li>
-                        <li><a>{'3M'}</a></li>
-                        <li><a>{'1Y'}</a></li>
-                        {/* <li><a onClick={this.onChangeInterval('1D')}>{'1D'}</a></li>
-                        <li><a onClick={this.onChangeInterval('1M')}>{'1M'}</a></li>
-                        <li><a onClick={this.onChangeInterval('3M')}>{'3M'}</a></li>
-                        <li><a onClick={this.onChangeInterval('1Y')}>{'1Y'}</a></li> */}
+                        <li><a onClick={() => this.onChangeInterval('1D')}>{'1D'}</a></li>
+                        <li><a onClick={() => this.onChangeInterval('1M')}>{'1M'}</a></li>
+                        <li><a onClick={() => this.onChangeInterval('3M')}>{'3M'}</a></li>
+                        <li><a onClick={() => this.onChangeInterval('1Y')}>{'1Y'}</a></li>
                     </div>
                 </div>
 
 
                 <div className="stock-sidebar-main">
                     <div className="buy-sell-option">
-                        <a className="buy-word">Buy {this.props.ticker}</a> / <a className="sell-word">Sell {this.props.ticker}</a>
+                        <a className="buy-word"
+                        >Buy {this.props.ticker}
+                        </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a 
+                        className="sell-word"
+                        >Sell {this.props.ticker}</a>
                     </div>
                     <div className="stock-shares-input">
-                        <label>{this.state.buyOrSell} Shares
+                        <label>Trade Shares
                             <input 
-                            type="text"
+                            type="number"
                             value={this.state.buySellStockAmt}
-                            onChange={this.onInputChange}
+                            min-value={1}
+                            onChange={this.onInputChange()}
                             />
                         </label>
                     </div>
                     <div className="stock-market-price">
-                        <p style={marketPriceStyle}>Market Price</p><p>{`$${this.state.currentPrice}`}</p>
+                        <p className="market-price-word" style={marketPriceStyle}>Market Price</p>
+                        <p className="market-price-price">{`$${this.state.currentPrice.toFixed(2)}`}</p>
                     </div>
                     <div className="estimated-cost">
-                        <p>Estimated Cost</p> <p>{`$${(this.state.buySellStockAmt * 
+                        <p className="estimated-cost-word">Estimated Cost</p>
+                        <p className="estimated-cost-cost">{`$${(this.state.buySellStockAmt * 
                         this.state.currentPrice).toFixed(2)}`}</p>
                     </div>
+                    <button className="place-order-btn">Place Order</button>
                 </div>
 
 
