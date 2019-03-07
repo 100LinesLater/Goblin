@@ -22,7 +22,7 @@ const App = () => (
         <Fragment >
             <Suspense fallback={<CircleLoader />}>
                 <ProtectedRoute exact path="/" component={HomePageContainer} />
-                <ProtectedRoute path="/stocks/" component={HomePageContainer} />
+                <ProtectedRoute path="/stocks/:ticker" component={HomePageContainer} />
             </Suspense>
         </Fragment>
         

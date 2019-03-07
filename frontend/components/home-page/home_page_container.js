@@ -3,20 +3,20 @@ import HomePage from './home_page';
 import {
     fetchTransactions, createTransaction,
     createPortfolio, fetchPortfolios,
-    updatePortfolio, fetchStocks
+    updatePortfolio
 } from '../../actions/transaction_actions';
-// import {getChartDataWithTag} from '../../../actions/external_api_actions';
+import {fetchNews} from '../../actions/external_api_actions';
 
 const mSTP = state => ({
     currentUser: state.entities.users[state.session.id],
     portfolios: state.entities.portfolios.filter(port => {
         if (port.user_id === state.session.id) return port;
     }),
-    stocks: state.entities.stocks,
+    newsArticles: state.entities.news,
 });
 
 const mDTP = dispatch => ({
-    fetchStocks: () => dispatch(fetchStocks()),
+    fetchNews: () => dispatch(fetchNews()),
     fetchTransactions: () => dispatch(fetchTransactions()),
     createTransaction: tx => dispatch(createTransaction(tx)),
     fetchPortfolios: () => dispatch(fetchPortfolios()),

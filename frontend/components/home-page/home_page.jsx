@@ -1,5 +1,6 @@
 import React from 'react';
-import { fetchChart, fetchNews } from '../../util/external_api_util';
+import {NavLink} from 'react-router-dom';
+import { fetchChart, fetchCurrentPrice } from '../../util/external_api_util';
 import PortfolioChart from './portfolio-chart';
 import PortfolioStockChart from './portfolio-stock-chart';
 
@@ -12,29 +13,30 @@ class HomePage extends React.Component {
             newsData: null,
             price: 0,
             color: null,
-            numDays: 60,
             ticker: 'goog',
-            interval: '3m'
+            interval: '3m',
+            currentPriceArray: []
         };
     }
 
     componentDidMount() {
         this.props.fetchPortfolios();
-        this.props.fetchStocks();
+        this.props.fetchNews();
         fetchChart(this.state.ticker, this.state.interval)
             .then(res => this.setState({ data: res }))
             .then(res => this.setState({
                 color: [
-                    (this.state.data[this.state.numDays - 1].close < this.state.data[0].close) ?
+                    (this.state.data[this.state.data.length - 1].close < this.state.data[0].close) ?
                         "#f1563a" : "#30cd9a"]
             }
             ));
-        fetchNews().then(res => this.setState({ newsData: res}));
     }
 
     render() {
         return (
             <div className="home-page-main">
+
+
                 <div className="portfolio-chart-main">
                     <div className="portfolio-chart-price">
                         <h1>{'$50.31'}</h1>
@@ -45,13 +47,14 @@ class HomePage extends React.Component {
                         color={this.state.color}
                     />
                     <ul className="portfolio-chart-time-tags">
-                        <li>{'1M'}</li>
-                        <li>{'3M'}</li>
-                        <li>{'6M'}</li>
-                        <li>{'1Y'}</li>
+                        <li><a>{'1M'}</a></li>
+                        <li><a>{'3M'}</a></li>
+                        <li><a>{'6M'}</a></li>
+                        <li><a>{'1Y'}</a></li>
                     </ul>
                 </div>
                 
+
                 <div className="portfolio-sidebar-main">
                     <div className="portfolio-sidebar-title">
                         <p>Stocks</p>
@@ -60,8 +63,8 @@ class HomePage extends React.Component {
                         port.num_shares > 0
                     ).map( (port, idx) => {
                         return (
-                        <a className="portfolio-stock-entry"
-                        href={`/stocks/${port.ticker}`}
+                        <NavLink className="portfolio-stock-entry"
+                        to={`/stocks/${port.ticker}`}
                         key={idx}
                         >
                             <div className="portfolio-stock-and-shares">
@@ -71,22 +74,33 @@ class HomePage extends React.Component {
                             <div className="portfolio-stock-daily-chart">
                                 <PortfolioStockChart 
                                 ticker={port.ticker}
-                                
                                 />
                             </div>
-                            <div className="portfolio-stock-price">
-                                {`$50.${51 + idx}`}
-                            </div>
-                        </a>
+                        </NavLink>
                         );
-                        //clickable a tag. 
-                        //Get stock name from portfolio entry through stocks table
-                        //Get num shares from port. Get daily graph through api call
-                        //Ask how to get entities state to look like sample state.
-                        //Maybe user_id: [{user_id, stock_id, num_shares},
-                        //                {user_id, stock_id, num_shares}]
                     })
                     }
+                </div>
+
+
+                <div className="portfolio-news-main">
+                    <h3 className="news-section-title">Recent News</h3>
+                    <ul className="news-feed">
+                        {this.props.newsArticles.map( (article, idx) => {
+                            
+                            <li key={idx} className="news-line-item"><a href={article.url}>
+                                <img className="news-photo" src={article.urlToImage}></img>
+                                <div className="news-content">
+                                    <p className="news-article-title">
+                                        {article.title}
+                                    </p>
+                                    <p className="news-article-description">
+                                        {article.description}
+                                    </p>
+                                </div>
+                            </a></li>
+                        })}
+                    </ul>
                 </div>
             </div>
         )

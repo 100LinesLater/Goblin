@@ -24,6 +24,11 @@
 .portfolio-chart-time-tags li{
     margin-right: 25px;
     font-size: 14px;
+    cursor: pointer;
+}
+
+.portfolio-chart-time-tags > li:hover{
+    color: $green;
 }
 
 //Sidebar
@@ -64,6 +69,7 @@
 }
 
 .p1, .p2{
+    margin-left: 25px;
     background: inherit;
 }
 
@@ -72,5 +78,35 @@
 }
 
 .portfolio-stock-daily-chart {
+    margin-right: 25px;
     background: $black;
+}
+
+// .portfolio-stock-price {
+//     margin-right: 15px;
+// }
+
+//News Feed
+.portfolio-news-main {
+    grid-row: 3 / 5;
+    grid-column: 2;
+    display: block;
+}
+
+.portfolio-news-section-title {
+    margin-left: 15px;
+    font-size: 16px;
+}
+
+.news-feed {
+    height: 400px;
+}
+
+.news-line-item {
+    height: 80px;
+}
+
+.news-photo {
+    height: 60px;
+    width: 80px;
 }

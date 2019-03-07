@@ -15,20 +15,10 @@ const receiveNews = news => ({
 
 export const getChartDataWithTag = (ticker, timeTag) => dispatch => (
     externalAPIUtil.fetchChart(ticker, timeTag)
-        .then(res => dispatch(receiveChartData(res.responseJSON)))
+        .then(res => dispatch(receiveChartData(res)))
 );
 
-export const getChartDataWithDate = (ticker, date) => dispatch => (
-    externalAPIUtil.fetchChartWithDate(ticker, date)
-        .then(res => dispatch(receiveChartData(res.responseJSON)))
-);
-
-export const getGeneralNews = () => dispatch => (
-    externalAPIUtil.fetchGeneralNews()
-        .then(res => dispatch(receiveNews(res.responseJSON)))
-);
-
-export const getStockNews = (ticker) => dispatch => (
-    externalAPIUtil.fetchGeneralNews(ticker)
-        .then(res => dispatch(receiveNews(res.responseJSON)))
+export const fetchNews = () => dispatch => (
+    externalAPIUtil.fetchNews()
+        .then(res => dispatch(receiveNews(res.articles)))
 );

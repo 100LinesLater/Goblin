@@ -15,7 +15,12 @@ export const fetchChartWithDate = (ticker, date) => (
         url: `${pathStart}/stock/${ticker}/chart/date/${date}`
     })
 );
-
+export const fetchCurrentPrice = (ticker) => (
+    $.ajax({
+        method: 'GET',
+        url: `${pathStart}/stock/${ticker}/price`
+    })
+);
 // Finance News
 export const fetchNews = () => (
     $.ajax({
