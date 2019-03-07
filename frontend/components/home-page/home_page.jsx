@@ -1,8 +1,7 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
-import { fetchChart, fetchCurrentPrice } from '../../util/external_api_util';
+import { fetchChart } from '../../util/external_api_util';
 import PortfolioChart from './portfolio-chart';
-import PortfolioStockChart from './portfolio-stock-chart';
+import PortfolioItem from './portfolio-item';
 
 class HomePage extends React.Component {
 
@@ -15,7 +14,6 @@ class HomePage extends React.Component {
             color: null,
             ticker: 'goog',
             interval: '3m',
-            currentPriceArray: []
         };
     }
 
@@ -40,18 +38,17 @@ class HomePage extends React.Component {
                 <div className="portfolio-chart-main">
                     <div className="portfolio-chart-price">
                         <h1>{'$50.31'}</h1>
-                        <h3>{'+$2.05 (3.98%)'}</h3>
                     </div>
                     <PortfolioChart className="portfolio-chart-chart"
                         data={this.state.data} 
                         color={this.state.color}
                     />
-                    <ul className="portfolio-chart-time-tags">
+                    <div className="portfolio-chart-time-tags">
                         <li><a>{'1M'}</a></li>
                         <li><a>{'3M'}</a></li>
                         <li><a>{'6M'}</a></li>
                         <li><a>{'1Y'}</a></li>
-                    </ul>
+                    </div>
                 </div>
                 
 
@@ -63,23 +60,10 @@ class HomePage extends React.Component {
                         port.num_shares > 0
                     ).map( (port, idx) => {
                         return (
-                        <NavLink className="portfolio-stock-entry"
-                        to={`/stocks/${port.ticker}`}
-                        key={idx}
-                        >
-                            <div className="portfolio-stock-and-shares">
-                                    <p className="p1">{port.ticker}</p>  
-                                <p className="p2">{`${port.num_shares} shares`}</p>
-                            </div>
-                            <div className="portfolio-stock-daily-chart">
-                                <PortfolioStockChart 
-                                ticker={port.ticker}
-                                />
-                            </div>
-                            {/* <div className="portfolio-stock-price">
-                                {this.state.currentPrices[idx]}
-                            </div> */}
-                        </NavLink>
+                            <PortfolioItem key={idx}
+                            ticker={port.ticker}
+                            num_shares={port.num_shares} 
+                            />
                         );
                     })
                     }
