@@ -1,0 +1,22 @@
+//Stock Sidebar
+.stock-sidebar-main {
+    grid-row: 2 / 3;
+    grid-column: 4;
+    display: block;
+    box-shadow: 1px 0px 49px -1px rgba(0,0,0,0.75);
+}
+
+.buy-sell-option {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.buy-word {
+    color: $green;
+    cursor: pointer;
+}
+
+.sell-word {
+    color: $red;
+    cursor: pointer;
+}

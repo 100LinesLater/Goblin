@@ -13,6 +13,8 @@ class StockPage extends React.Component {
             color: null,
             ticker: this.props.ticker,
             interval: '3m',
+            buyOrSell: 'Buy',
+            buySellStockAmt: 0,
         };
     }
 
@@ -44,6 +46,10 @@ class StockPage extends React.Component {
     //     this.setState({interval: value});
     // }
 
+    onInputChange(e) {
+        this.setState({buySellStockAmt: e.target.value});
+    }
+
     render() {
         return (
             <div className="home-page-main">
@@ -71,7 +77,18 @@ class StockPage extends React.Component {
 
 
                 <div className="stock-sidebar-main">
-                    
+                    <div className="buy-sell-option">
+                        <a className="buy-word">Buy</a> / <a className="sell-word">Sell</a>
+                    </div>
+                    <div className="stock-sidebar-buy-sell">
+                        <label>{this.state.buyOrSell} Stocks
+                            <input 
+                            type="text"
+                            value={this.state.buySellStockAmt}
+                            onChange={this.onInputChange}
+                            />
+                        </label>
+                    </div>
                 </div>
 
 
