@@ -88,25 +88,57 @@
 
 //News Feed
 .portfolio-news-main {
-    grid-row: 3 / 5;
-    grid-column: 2;
-    display: block;
+    grid-row: 3 / -1;
+    grid-column: 2 / 3;
 }
 
 .portfolio-news-section-title {
     margin-left: 15px;
-    font-size: 16px;
+    font-size: 28px;
 }
 
 .news-feed {
-    height: 400px;
+    height: 500px;
 }
 
 .news-line-item {
-    height: 80px;
+    height: 100px;
+    display: grid;
+    grid-template-columns: 2.7fr 8fr;
+    border-bottom: 1px solid $black;
+    border-top: 1px solid $black;
+}
+
+.news-line-item:hover {
+    background: $black;
 }
 
 .news-photo {
-    height: 60px;
-    width: 80px;
+    margin-left: 5px;
+    grid-column: 1;
+    height: 90px;
+    width: 150px;
+    align-self: center;
+    justify-self: center;
+}
+
+.news-content {
+    margin-left: 20px;
+    grid-column: 2;
+    display: block;
+    overflow-wrap: normal;
+    background: inherit;
+}
+
+.news-article-title {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    background: inherit;
+}
+
+.news-article-description {
+    font-size: 14px;
+    font-weight: 300;
+    background: inherit;
 }

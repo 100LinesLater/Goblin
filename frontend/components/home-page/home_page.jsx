@@ -76,6 +76,9 @@ class HomePage extends React.Component {
                                 ticker={port.ticker}
                                 />
                             </div>
+                            {/* <div className="portfolio-stock-price">
+                                {this.state.currentPrices[idx]}
+                            </div> */}
                         </NavLink>
                         );
                     })
@@ -87,8 +90,8 @@ class HomePage extends React.Component {
                     <h3 className="news-section-title">Recent News</h3>
                     <ul className="news-feed">
                         {this.props.newsArticles.map( (article, idx) => {
-                            
-                            <li key={idx} className="news-line-item"><a href={article.url}>
+                            return (
+                            <a key={idx} className="news-line-item" href={article.url}>
                                 <img className="news-photo" src={article.urlToImage}></img>
                                 <div className="news-content">
                                     <p className="news-article-title">
@@ -98,7 +101,8 @@ class HomePage extends React.Component {
                                         {article.description}
                                     </p>
                                 </div>
-                            </a></li>
+                            </a>
+                            )
                         })}
                     </ul>
                 </div>
