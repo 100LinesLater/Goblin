@@ -8,15 +8,43 @@
 
 .buy-sell-option {
     margin-top: 10px;
-    margin-left: 10px;
+    margin-left: 20px;
+    font-size: 20px;
 }
 
 .buy-word {
     color: $green;
     cursor: pointer;
+    font-size: inherit;
 }
 
 .sell-word {
     color: $red;
     cursor: pointer;
+    font-size: inherit;
+}
+
+.stock-shares-input {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.stock-shares-input > label > input {
+    background: $black;
+    margin-left: 50px;
+    padding: 5px 5px;
+    width: 80px;
+    height: 30px;
+    color: $white;
+    cursor: text;
+    text-align: right;
+    font-size: 13px;
+}
+
+.stock-shares-input > label > input:hover {
+    border: 1px solid lightgray;
+}
+
+.stock-shares-input > label > input:focus {
+    border: 1px solid lightgray;
 }

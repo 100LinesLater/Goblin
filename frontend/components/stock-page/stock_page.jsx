@@ -1,6 +1,7 @@
 import React from 'react';
 import { fetchChart } from '../../util/external_api_util';
 import PortfolioChart from './portfolio-chart';
+import {fetchCurrentPrice} from '../../util/external_api_util';
 
 class StockPage extends React.Component {
 
@@ -14,13 +15,15 @@ class StockPage extends React.Component {
             ticker: this.props.ticker,
             interval: '3m',
             buyOrSell: 'Buy',
-            buySellStockAmt: 0,
+            buySellStockAmt: 10,
+            currentPrice: 0,
         };
     }
 
     componentDidMount() {
         this.props.fetchPortfolios();
         this.props.fetchNews();
+        fetchCurrentPrice(this.props.ticker).then(res => this.setState({currentPrice: res}));
         fetchChart(this.state.ticker, this.state.interval)
             .then(res => this.setState({ data: res }))
             .then(res => this.setState({
@@ -51,6 +54,9 @@ class StockPage extends React.Component {
     }
 
     render() {
+        const marketPriceStyle = {
+            color: this.state.color
+        };
         return (
             <div className="home-page-main">
 
@@ -78,16 +84,23 @@ class StockPage extends React.Component {
 
                 <div className="stock-sidebar-main">
                     <div className="buy-sell-option">
-                        <a className="buy-word">Buy</a> / <a className="sell-word">Sell</a>
+                        <a className="buy-word">Buy {this.props.ticker}</a> / <a className="sell-word">Sell {this.props.ticker}</a>
                     </div>
-                    <div className="stock-sidebar-buy-sell">
-                        <label>{this.state.buyOrSell} Stocks
+                    <div className="stock-shares-input">
+                        <label>{this.state.buyOrSell} Shares
                             <input 
                             type="text"
                             value={this.state.buySellStockAmt}
                             onChange={this.onInputChange}
                             />
                         </label>
+                    </div>
+                    <div className="stock-market-price">
+                        <p style={marketPriceStyle}>Market Price</p><p>{`$${this.state.currentPrice}`}</p>
+                    </div>
+                    <div className="estimated-cost">
+                        <p>Estimated Cost</p> <p>{`$${(this.state.buySellStockAmt * 
+                        this.state.currentPrice).toFixed(2)}`}</p>
                     </div>
                 </div>
 
