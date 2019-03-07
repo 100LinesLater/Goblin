@@ -9,6 +9,7 @@ import HeaderContainer from './header/header_container';
 import LoginFormContainer from './login-signup/login_form_container';
 import SignupFormContainer from './login-signup/signup_form_container';
 import HomePageContainer from './home-page/home_page_container';
+import StockPageContainer from './stock-page/stock_page_container';
 
 const App = () => (
     <div>
@@ -21,11 +22,13 @@ const App = () => (
 
         <Fragment >
             <Suspense fallback={<CircleLoader />}>
-                <ProtectedRoute exact path="/" component={HomePageContainer} />
-                <ProtectedRoute exact path="/stocks/:ticker" component={HomePageContainer} />
+                <Switch>
+                    <ProtectedRoute exact path="/" component={HomePageContainer} />
+                    <ProtectedRoute exact path="/stocks/:ticker" component={StockPageContainer} />
+                </Switch>
             </Suspense>
         </Fragment>
-        
+
     </div>
 );
 

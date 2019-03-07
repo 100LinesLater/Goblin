@@ -32,9 +32,33 @@
     color: $green;
 }
 
+.stock-chart-time-tags {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: horizontal;
+}
+
+.stock-chart-time-tags li{
+    margin-right: 25px;
+    font-size: 14px;
+    cursor: pointer;
+    list-style: none;
+}
+
+.stock-chart-time-tags > li > a:hover{
+    color: $green;
+}
+
 //Sidebar
 .portfolio-sidebar-main {
     grid-row: 2 / 4;
+    grid-column: 4;
+    display: block;
+    box-shadow: 1px 0px 49px -1px rgba(0,0,0,0.75);
+}
+
+.stock-sidebar-main {
+    grid-row: 2 / 3;
     grid-column: 4;
     display: block;
     box-shadow: 1px 0px 49px -1px rgba(0,0,0,0.75);
