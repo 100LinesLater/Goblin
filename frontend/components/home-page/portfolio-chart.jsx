@@ -1,5 +1,5 @@
 import React from 'react';
-import { LineChart, Line, YAxis, Tooltip } from 'recharts';
+import { LineChart, Line, YAxis, Tooltip, Dot } from 'recharts';
 
 class PortfolioChart extends React.Component {
     constructor(props) {
@@ -12,7 +12,8 @@ class PortfolioChart extends React.Component {
             < LineChart
             width = { 675 } 
             height = { 200}
-            data = { this.props.data } >
+            data = { this.props.data } 
+            >
                 <Line
                     type="monotone"
                     dataKey="close"

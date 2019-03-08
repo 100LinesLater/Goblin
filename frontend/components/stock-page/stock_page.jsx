@@ -14,7 +14,6 @@ class StockPage extends React.Component {
             color: null,
             ticker: this.props.ticker,
             interval: '1Y',
-            buyOrSell: 'Buy',
             buySellStockAmt: 0,
             currentPrice: 0,
         };
@@ -23,7 +22,7 @@ class StockPage extends React.Component {
     componentDidMount() {
         this.props.fetchPortfolios();
         this.props.fetchNews();
-        fetchCurrentPrice(this.props.ticker).then(res => this.setState({currentPrice: res}));
+        fetchCurrentPrice(this.props.ticker).then(res => this.setState({currentPrice: res, price: res}));
         fetchChart(this.state.ticker, this.state.interval)
             .then(res => this.setState({ data: res }))
             .then(res => this.setState({
@@ -65,7 +64,7 @@ class StockPage extends React.Component {
 
                 <div className="portfolio-chart-main">
                     <div className="portfolio-chart-price">
-                        <h1>${this.state.currentPrice.toFixed(2)}</h1>
+                        <h1>${this.state.price.toFixed(2)}</h1>
                     </div>
                     <PortfolioChart className="portfolio-chart-chart"
                         data={this.state.data}
@@ -108,6 +107,8 @@ class StockPage extends React.Component {
                         this.state.currentPrice).toFixed(2)}`}</p>
                     </div>
                     <button className="place-order-btn">Place Order</button>
+                    <p className="buying-power">Buying Power: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    ${this.props.currentUser.buying_power.toFixed(2)}</p>
                 </div>
 
 
