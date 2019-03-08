@@ -14,7 +14,7 @@ class HomePage extends React.Component {
             color: null,
             ticker: 'goog',
             interval: '3m',
-            currentPrice: 0
+            currentPrice: 10000
         };
     }
 

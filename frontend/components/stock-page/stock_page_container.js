@@ -3,7 +3,7 @@ import StockPage from './stock_page';
 import {
     fetchTransactions, createTransaction,
     createPortfolio, fetchPortfolios,
-    updatePortfolio
+    updatePortfolio, fetchStocks
 } from '../../actions/transaction_actions';
 import { fetchNews } from '../../actions/external_api_actions';
 
