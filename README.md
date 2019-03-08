@@ -1,24 +1,6 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Goblin is a Robinhood clone, a stock and equities trading platform that offers free trades on transactions. The app allows you to view stocks in your portfolio and other stocks on the market in different date ranges and keep track of the shares you own. 
+<br>
+[Live Site](https://goblin-project.herokuapp.com/#/home)
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
