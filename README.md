@@ -14,7 +14,8 @@ Goblin uses the following <b>technologies</b> in its implemenation:
 
 ### Key Features
 
-Stock Charts\
+Stock Charts:
+
 Building out graphs was a very rewarding part of this app. Being able to display stock charts is an important feature in any stock trading tool. 
 
 Getting the stock data required fetching API on the relevant stock data. IEX was a great resource that offered free API calls for a variety of stock related information and pricing. Next, a graphing tool was needed to be able to plot the information. I used Recharts, a graphing tool for React in which you can supply the data you want the graph to be composed of. The array of objects was sent from the api call to the chart, choosing each day's closing price, and thus the graph was formed. 
