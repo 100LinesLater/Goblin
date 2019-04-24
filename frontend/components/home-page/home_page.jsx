@@ -90,13 +90,13 @@ class HomePage extends React.Component {
                         {this.props.newsArticles.map( (article, idx) => {
                             return (
                             <a key={idx} className="news-line-item" href={article.url}>
-                                <img className="news-photo" src={article.urlToImage}></img>
+                                <img className="news-photo" src={article.multimedia[3].url}></img>
                                 <div className="news-content">
                                     <p className="news-article-title">
                                         {article.title}
                                     </p>
                                     <p className="news-article-description">
-                                        {article.description}
+                                        {article.abstract}
                                     </p>
                                 </div>
                             </a>

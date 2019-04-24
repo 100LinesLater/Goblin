@@ -25,7 +25,7 @@ export const fetchCurrentPrice = (ticker) => (
 export const fetchNews = () => (
     $.ajax({
         method: 'GET',
-        url: `https://newsapi.org/v2/top-headlines?country=us&apiKey=f5b8533f8aaf4c5d93b5668c4fec1a28`
+        url: `https://api.nytimes.com/svc/topstories/v2/business.json?api-key=x5PS4SPXYOBKxxOs6SDQvLJqpvqzxm8x`
     })
 );
 

@@ -20,5 +20,5 @@ export const getChartDataWithTag = (ticker, timeTag) => dispatch => (
 
 export const fetchNews = () => dispatch => (
     externalAPIUtil.fetchNews()
-        .then(res => dispatch(receiveNews(res.articles)))
+        .then(res => dispatch(receiveNews(res.results)))
 );
