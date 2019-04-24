@@ -49,4 +49,11 @@ export const fetchNews = () => (
     })
 );
 
-// Stock Info
+// Search
+export const fetchSearchResults = (term) => (
+    $.ajax({
+        method: 'GET',
+        url: `${pathStartWorld}/stock_search?search_term=${term}&limit=5&page=1&api_token=${apiToken}`
+    })
+);
+
