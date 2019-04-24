@@ -87,8 +87,8 @@ class HomePage extends React.Component {
                 <div className="portfolio-news-main">
                     <h3 className="news-section-title">Recent News</h3>
                     <ul className="news-feed">
-                        {this.props.newsArticles.map( (article, idx) => {
-                            return (
+                        {this.props.newsArticles.map( (article, idx) => (
+                            idx < 10 ? (
                             <a key={idx} className="news-line-item" href={article.url}>
                                 <img className="news-photo" src={article.multimedia[3].url}></img>
                                 <div className="news-content">
@@ -100,8 +100,8 @@ class HomePage extends React.Component {
                                     </p>
                                 </div>
                             </a>
-                            )
-                        })}
+                            ) : <></>
+                        ))}
                     </ul>
                 </div>
             </div>
