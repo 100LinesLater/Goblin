@@ -4,6 +4,7 @@ export const RECEIVE_CHART_DATA = "RECEIVE_CHART_DATA";
 export const RECEIVE_DAILY_CHART_DATA = "RECEIVE_DAILY_CHART_DATA";
 export const RECEIVE_WEEKLY_CHART_DATA = "RECEIVE_WEEKLY_CHART_DATA";
 export const RECEIVE_HISTORICAL_CHART_DATA = "RECEIVE_HISTORICAL_CHART_DATA";
+export const RECEIVE_SEARCH_RESULTS = "RECEIVE_SEARCH_RESULTS";
 export const RECEIVE_NEWS = "RECEIVE_NEWS";
 
 const receiveDailyChartData = data => ({
@@ -24,6 +25,11 @@ const receiveHistoricalChartData = data => ({
 const receiveChartData = data => ({
     type: RECEIVE_CHART_DATA,
     data
+});
+
+const receiveSearchResults = results => ({
+    type: RECEIVE_SEARCH_RESULTS, 
+    results
 });
 
 const receiveNews = news => ({
@@ -49,6 +55,11 @@ export const getHistoricalChart = (ticker) => dispatch => (
 export const getChartDataWithTag = (ticker, timeTag) => dispatch => (
     externalAPIUtil.fetchChart(ticker, timeTag)
         .then(res => dispatch(receiveChartData(res)))
+);
+
+export const getSearchResults = (searchTerm) => dispatch => (
+    externalAPIUtil.fetchSearchResults(searchTerm)
+        .then(res => dispatch(receiveSearchResults(res.data)))
 );
 
 export const fetchNews = () => dispatch => (

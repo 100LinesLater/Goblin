@@ -56,4 +56,3 @@ export const fetchSearchResults = (term) => (
         url: `${pathStartWorld}/stock_search?search_term=${term}&limit=5&page=1&api_token=${apiToken}`
     })
 );
-
