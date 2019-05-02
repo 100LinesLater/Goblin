@@ -10,7 +10,8 @@ const entitiesReducer = combineReducers({
     stocks: stockReducer, 
     portfolios: portfolioReducer, 
     transactions: transactionReducer,
-    news: newsArticlesReducer
+    news: newsArticlesReducer,
+    stockData: stockDataReducer
 });
 
 export default entitiesReducer;
