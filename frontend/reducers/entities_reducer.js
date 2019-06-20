@@ -4,6 +4,7 @@ import stockReducer from './stock_reducer';
 import portfolioReducer from './portfolio_reducer';
 import transactionReducer from './transaction_reducer';
 import newsArticlesReducer from './news_articles_reducer';
+import stockDataReducer from './stockDataReducer';
 
 const entitiesReducer = combineReducers({
     users: usersReducer,
