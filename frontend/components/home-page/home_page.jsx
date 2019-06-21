@@ -1,5 +1,5 @@
 import React from 'react';
-import { fetchIntraday } from '../../util/external_api_util';
+import { fetchIntraday, fetchChart } from '../../util/external_api_util';
 import PortfolioChart from './portfolio-chart';
 import PortfolioItem from './portfolio-item';
 
@@ -21,7 +21,7 @@ class HomePage extends React.Component {
     componentDidMount() {
         this.props.fetchPortfolios();
         this.props.fetchNews();
-        fetchIntraday(this.state.ticker, this.state.interval)
+        fetchChart(this.state.ticker, this.state.interval)
             .then(res => this.setState({ data: res }))
             .then(res => this.setState({
                 color: [
@@ -33,14 +33,25 @@ class HomePage extends React.Component {
 
     componentDidUpdate(_prevProps, prevState) {
         if (prevState.interval !== this.state.interval) {
-            fetchIntraday(this.state.ticker, this.state.interval)
-                .then(res => this.setState({ data: res }))
-                .then(res => this.setState({
-                    color: [
-                        (this.state.data[this.state.data.length - 1].close < this.state.data[0].close) ?
-                            "#f1563a" : "#30cd9a"]
-                }
+            if (this.state.interval === '1d') {
+                fetchIntraday(this.state.ticker)
+                    .then(res => this.setState({ data: res }))
+                    .then(res => this.setState({
+                        color: [
+                            (this.state.data[this.state.data.length - 1].close < this.state.data[0].close) ?
+                                "#f1563a" : "#30cd9a"]
+                    }
                 ));
+            } else {
+                fetchChart(this.state.ticker, this.state.interval)
+                    .then(res => this.setState({ data: res }))
+                    .then(res => this.setState({
+                        color: [
+                            (this.state.data[this.state.data.length - 1].close < this.state.data[0].close) ?
+                                "#f1563a" : "#30cd9a"]
+                    }
+                ));
+            }
         }
     }
 
@@ -58,10 +69,10 @@ class HomePage extends React.Component {
                         color={this.state.color}
                     />
                     <div className="portfolio-chart-time-tags">
-                        <li><a onClick={() => this.onChangeInterval('1D')}>{'1D'}</a></li>
-                        <li><a onClick={() => this.onChangeInterval('1M')}>{'1M'}</a></li>
-                        <li><a onClick={() => this.onChangeInterval('3M')}>{'3M'}</a></li>
-                        <li><a onClick={() => this.onChangeInterval('1Y')}>{'1Y'}</a></li>
+                        <li><a onClick={() => this.onChangeInterval('1d')}>{'1D'}</a></li>
+                        <li><a onClick={() => this.onChangeInterval('1m')}>{'1M'}</a></li>
+                        <li><a onClick={() => this.onChangeInterval('3m')}>{'3M'}</a></li>
+                        <li><a onClick={() => this.onChangeInterval('1y')}>{'1Y'}</a></li>
                     </div>
                 </div>
                 

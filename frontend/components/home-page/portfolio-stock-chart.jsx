@@ -14,7 +14,7 @@ class PortfolioStockChart extends React.Component {
 
     render() {
 
-        fetchIntraday(this.props.ticker, '1d')
+        fetchIntraday(this.props.ticker)
             .then(res => this.setState({ data: res }))
             .then(res => this.setState({
                 color: [

@@ -5,7 +5,7 @@ const pathStartWorld = "https://www.worldtradingdata.com/api/v1";
 const worldApiToken = "hY9EnOWqeuof9zXhexjNSPdqBX3Gjhf7eT9v4lw3kxct6yLEHPIPTg9rfvn4";
 
 // Stock Chart Data
-export const fetchIntraday = (ticker, timeTag) => (
+export const fetchIntraday = (ticker) => (
     $.ajax({
         method: 'GET',
         url: `${pathStart}/stock/${ticker}/intraday-prices${apiToken}&chartInterval=5`
