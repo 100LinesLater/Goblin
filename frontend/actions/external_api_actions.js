@@ -20,7 +20,7 @@ const receiveNews = news => ({
 });
 
 export const getChartDataWithTag = (ticker, timeTag) => dispatch => (
-    externalAPIUtil.fetchChart(ticker, timeTag)
+    externalAPIUtil.fetchIntraday(ticker)
         .then(res => dispatch(receiveChartData(res)))
 );
 

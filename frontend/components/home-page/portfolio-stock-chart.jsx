@@ -1,6 +1,6 @@
 import React from 'react';
 import { LineChart, Line, YAxis, Tooltip } from 'recharts';
-import {fetchChart} from '../../util/external_api_util';
+import {fetchIntraday} from '../../util/external_api_util';
 
 class PortfolioStockChart extends React.Component {
     constructor(props) {
@@ -14,7 +14,7 @@ class PortfolioStockChart extends React.Component {
 
     render() {
 
-        fetchChart(this.props.ticker, '1d')
+        fetchIntraday(this.props.ticker, '1d')
             .then(res => this.setState({ data: res }))
             .then(res => this.setState({
                 color: [

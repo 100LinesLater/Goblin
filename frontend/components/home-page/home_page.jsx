@@ -1,5 +1,5 @@
 import React from 'react';
-import { fetchChart } from '../../util/external_api_util';
+import { fetchIntraday } from '../../util/external_api_util';
 import PortfolioChart from './portfolio-chart';
 import PortfolioItem from './portfolio-item';
 
@@ -21,7 +21,7 @@ class HomePage extends React.Component {
     componentDidMount() {
         this.props.fetchPortfolios();
         this.props.fetchNews();
-        fetchChart(this.state.ticker, this.state.interval)
+        fetchIntraday(this.state.ticker, this.state.interval)
             .then(res => this.setState({ data: res }))
             .then(res => this.setState({
                 color: [
@@ -33,7 +33,7 @@ class HomePage extends React.Component {
 
     componentDidUpdate(_prevProps, prevState) {
         if (prevState.interval !== this.state.interval) {
-            fetchChart(this.state.ticker, this.state.interval)
+            fetchIntraday(this.state.ticker, this.state.interval)
                 .then(res => this.setState({ data: res }))
                 .then(res => this.setState({
                     color: [
