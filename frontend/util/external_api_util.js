@@ -8,7 +8,7 @@ const worldApiToken = "hY9EnOWqeuof9zXhexjNSPdqBX3Gjhf7eT9v4lw3kxct6yLEHPIPTg9rf
 export const fetchIntraday = (ticker) => (
     $.ajax({
         method: 'GET',
-        url: `${pathStart}/stock/${ticker}/intraday-prices?token=${apiToken}&chartInterval=5`
+        url: `${pathStart}/stock/${ticker}/intraday-prices${apiToken}&chartInterval=5`
     })
 );
 
@@ -21,7 +21,7 @@ const intervalTable = {
 export const fetchChart = (ticker, timeTag) => {
     return $.ajax({
         method: 'GET',
-        url: `${pathStart}/stock/${ticker}/chart/${timeTag}?token=${apiToken}&chartInterval=${intervalTable(timeTag)}`
+        url: `${pathStart}/stock/${ticker}/chart/${timeTag}${apiToken}&chartInterval=${intervalTable(timeTag)}`
     });
 };
 
@@ -35,7 +35,7 @@ export const fetchChartWithDate = (ticker, date) => (
 export const fetchCurrentPrice = (ticker) => (
     $.ajax({
         method: 'GET',
-        url: `${pathStart}/stock/${ticker}/price?token=${apiToken}`
+        url: `${pathStart}/stock/${ticker}/price${apiToken}`
     })
 );
 // Finance News
