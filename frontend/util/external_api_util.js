@@ -21,7 +21,7 @@ const intervalTable = {
 export const fetchChart = (ticker, timeTag) => {
     return $.ajax({
         method: 'GET',
-        url: `${pathStart}/stock/${ticker}/chart/${timeTag}${apiToken}&chartInterval=${intervalTable(timeTag)}`
+        url: `${pathStart}/stock/${ticker}/chart/${timeTag}${apiToken}&chartInterval=${intervalTable[timeTag]}`
     });
 };
 
