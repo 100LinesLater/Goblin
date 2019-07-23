@@ -3,7 +3,7 @@ import HomePage from './home_page';
 import {
     fetchTransactions, createTransaction,
     createPortfolio, fetchPortfolios,
-    updatePortfolio
+    updatePortfolio, 
 } from '../../actions/transaction_actions';
 import {fetchNews} from '../../actions/external_api_actions';
 
@@ -21,7 +21,7 @@ const mDTP = dispatch => ({
     createTransaction: tx => dispatch(createTransaction(tx)),
     fetchPortfolios: () => dispatch(fetchPortfolios()),
     createPortfolio: port => dispatch(createPortfolio(port)),
-    updatePortfolio: port => dispatch(updatePortfolio(port))
+    updatePortfolio: port => dispatch(updatePortfolio(port)),
     // getChartDataWithTag: (ticker, timeTag) => dispatch(getChartDataWithTag(ticker, timeTag)),
 });
 

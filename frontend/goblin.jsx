@@ -6,10 +6,6 @@ import Root from './components/root';
 document.addEventListener("DOMContentLoaded", () => {
     const rootEl = document.getElementById('root');
 
-    // Test
-        
-    // End Test
-
     let store;
     if (window.currentUser) {
         const preloadedState = {
@@ -22,6 +18,11 @@ document.addEventListener("DOMContentLoaded", () => {
         };
         store = configureStore(preloadedState);
         delete window.currentUser;
+
+        // Test
+            
+        // End Test
+
     } else {
         store = configureStore();
     }
