@@ -126,21 +126,19 @@ class StockPage extends React.Component {
                 <div className="portfolio-news-main">
                     <h3 className="news-section-title">Recent News</h3>
                     <ul className="news-feed">
-                        {this.props.newsArticles.map((article, idx) => {
-                            return (
-                                <a key={idx} className="news-line-item" href={article.url}>
-                                    <img className="news-photo" src={article.urlToImage}></img>
-                                    <div className="news-content">
-                                        <p className="news-article-title">
-                                            {article.title}
-                                        </p>
-                                        <p className="news-article-description">
-                                            {article.description}
-                                        </p>
-                                    </div>
-                                </a>
-                            )
-                        })}
+                        {this.props.newsArticles.map((article, idx) => (
+                            <a key={idx} className="news-line-item" href={article.url}>
+                                <img className="news-photo" src={article.multimedia[3].url}></img>
+                                <div className="news-content">
+                                    <p className="news-article-title">
+                                        {article.title}
+                                    </p>
+                                    <p className="news-article-description">
+                                        {article.abstract}
+                                    </p>
+                                </div>
+                            </a>
+                        ))}
                     </ul>
                 </div>
             </div>
