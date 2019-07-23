@@ -26,9 +26,9 @@ class PortfolioItem extends React.Component {
                     <p className="p2">{`${this.props.num_shares} shares`}</p>
                 </div>
                 <div className="portfolio-stock-daily-chart">
-                    <PortfolioStockChart
+                    {/* <PortfolioStockChart
                         ticker={this.props.ticker}
-                    />
+                    /> */} Stock Chart Here 
                 </div>
                 <div className="portfolio-stock-price">
                     {`$${this.state.currentPrice}`}

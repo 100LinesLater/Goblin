@@ -2,13 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import configureStore from './store/store';
 import Root from './components/root';
-import {fetchCurrentPrice} from './util/external_api_util';
 
 document.addEventListener("DOMContentLoaded", () => {
     const rootEl = document.getElementById('root');
 
     // Test
-        window.fetchPrice = fetchCurrentPrice;
+        
     // End Test
 
     let store;
