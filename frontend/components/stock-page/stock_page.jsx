@@ -30,7 +30,7 @@ class StockPage extends React.Component {
                     (this.state.data[this.state.data.length - 1].close < this.state.data[0].close) ?
                         "#f1563a" : "#30cd9a"]
             }
-            ));
+        ));
     }
 
     componentDidUpdate(_prevProps, prevState) {
@@ -127,17 +127,19 @@ class StockPage extends React.Component {
                     <h3 className="news-section-title">Recent News</h3>
                     <ul className="news-feed">
                         {this.props.newsArticles.map((article, idx) => (
-                            <a key={idx} className="news-line-item" href={article.url}>
-                                <img className="news-photo" src={article.multimedia[3].url}></img>
-                                <div className="news-content">
-                                    <p className="news-article-title">
-                                        {article.title}
-                                    </p>
-                                    <p className="news-article-description">
-                                        {article.abstract}
-                                    </p>
-                                </div>
-                            </a>
+                            idx < 10 ? (
+                                <a key={idx} className="news-line-item" href={article.url}>
+                                    <img className="news-photo" src={article.multimedia[3].url}></img>
+                                    <div className="news-content">
+                                        <p className="news-article-title">
+                                            {article.title}
+                                        </p>
+                                        <p className="news-article-description">
+                                            {article.abstract}
+                                        </p>
+                                    </div>
+                                </a>
+                            ) : <></>
                         ))}
                     </ul>
                 </div>
