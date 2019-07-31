@@ -9,7 +9,6 @@ class HomePage extends React.Component {
         super(props);
         this.state = {
             data: null,
-            newsData: null,
             price: 0,
             color: null,
             ticker: 'goog',
@@ -20,7 +19,8 @@ class HomePage extends React.Component {
 
     componentDidMount() {
         this.props.fetchPortfolios();
-        this.props.fetchNews();
+        this.props.fetchNews()
+            .then(res => this.setState({newsData: res}));
         fetchChart(this.state.ticker, this.state.interval)
             .then(res => this.setState({ data: res }))
             .then(res => this.setState({
@@ -55,10 +55,34 @@ class HomePage extends React.Component {
         }
     }
 
+    renderArticles() {
+        if (this.props.newsArticles) {
+            return (
+                <ul className="news-feed">
+                {this.props.newsArticles.map((article, idx) => (
+                    idx < 10 && !!article.multimedia[3] ? (
+                        <a key={idx} className="news-line-item" href={article.url}>
+                            <img className="news-photo" src={article.multimedia[3].url}></img>
+                            <div className="news-content">
+                                <p className="news-article-title">
+                                    {article.title}
+                                </p>
+                                <p className="news-article-description">
+                                    {article.abstract}
+                                </p>
+                            </div>
+                        </a>
+                    ) : <></>
+                ))}
+                </ul>
+            )
+        } 
+        return "";
+    }
+
     render() {
         return (
             <div className="home-page-main">
-
 
                 <div className="portfolio-chart-main">
                     <div className="portfolio-chart-price">
@@ -87,7 +111,7 @@ class HomePage extends React.Component {
                         return (
                             <PortfolioItem key={idx}
                             ticker={port.ticker}
-                            num_shares={port.num_shares} 
+                            num_shares={port.num_shares}
                             />
                         );
                     })
@@ -97,23 +121,7 @@ class HomePage extends React.Component {
 
                 <div className="portfolio-news-main">
                     <h3 className="news-section-title">Recent News</h3>
-                    <ul className="news-feed">
-                        {this.props.newsArticles.map( (article, idx) => (
-                            idx < 10 ? (
-                            <a key={idx} className="news-line-item" href={article.url}>
-                                <img className="news-photo" src={article.multimedia[3].url}></img>
-                                <div className="news-content">
-                                    <p className="news-article-title">
-                                        {article.title}
-                                    </p>
-                                    <p className="news-article-description">
-                                        {article.abstract}
-                                    </p>
-                                </div>
-                            </a>
-                            ) : <></>
-                        ))}
-                    </ul>
+                    {this.renderArticles()}
                 </div>
             </div>
         )

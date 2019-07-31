@@ -14,7 +14,6 @@ const mSTP = (state, ownProps) => ({
 });
 
 const mDTP = dispatch => ({
-    fetchNews: () => dispatch(fetchNews()),
     fetchTransactions: () => dispatch(fetchTransactions()),
     createTransaction: tx => dispatch(createTransaction(tx)),
     fetchPortfolios: () => dispatch(fetchPortfolios()),

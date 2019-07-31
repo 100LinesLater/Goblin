@@ -9,7 +9,6 @@ class StockPage extends React.Component {
         super(props);
         this.state = {
             data: null,
-            newsData: null,
             price: 0,
             color: null,
             ticker: this.props.ticker,
@@ -21,7 +20,6 @@ class StockPage extends React.Component {
 
     componentDidMount() {
         this.props.fetchPortfolios();
-        this.props.fetchNews();
         fetchCurrentPrice(this.props.ticker).then(res => this.setState({currentPrice: res, price: res}));
         fetchChart(this.state.ticker, this.state.interval)
             .then(res => this.setState({ data: res }))
@@ -71,7 +69,6 @@ class StockPage extends React.Component {
         };
         return (
             <div className="home-page-main">
-
 
                 <div className="portfolio-chart-main">
                     <div className="portfolio-chart-price">
@@ -127,7 +124,7 @@ class StockPage extends React.Component {
                     <h3 className="news-section-title">Recent News</h3>
                     <ul className="news-feed">
                         {this.props.newsArticles.map((article, idx) => (
-                            idx < 10 ? (
+                            idx < 10 && !!article.multimedia[3] ? (
                                 <a key={idx} className="news-line-item" href={article.url}>
                                     <img className="news-photo" src={article.multimedia[3].url}></img>
                                     <div className="news-content">
