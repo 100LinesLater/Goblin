@@ -1,6 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import {fetchSearchResults} from '../../util/external_api_util';
+import SearchFilterItem from './search_filter_item';
 
 // fetchSearchResults("goog")
 //     .then(res => console.log(res.data[0].symbol));
@@ -20,7 +21,8 @@ class Header extends React.Component {
         this.setState({ searchTerm: e.target.value });
         if (e.target.value !== "") {
             fetchSearchResults(e.target.value)
-                .then(res => this.setState({searchResults: res.data}));
+                .then(res => this.setState({searchResults: res.data}))
+                .then(res => console.log(this.state.searchResults));
         }
     }
     
@@ -36,6 +38,19 @@ class Header extends React.Component {
                         placeholder="Search" 
                     />
                 </div>
+                {searchResults.length 
+                    ? (
+                        <ul className="searchFilter">
+                            {searchResults.map((item, idx) => (
+                                <SearchFilterItem
+                                    key={idx}
+                                    ticker={item.symbol}
+                                    exchange={item.stock_exchange_short}
+                                />
+                            ))}
+                        </ul>
+                    ) 
+                    : (<></>)}
                 <span className="header-links">
                     <NavLink className="header-home"
                         to="/">Home
