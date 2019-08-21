@@ -22,7 +22,7 @@ class Header extends React.Component {
         if (e.target.value !== "") {
             fetchSearchResults(e.target.value)
                 .then(res => this.setState({searchResults: res.data}))
-                .then(res => console.log(this.state.searchResults));
+                .then(res => this.setState());
         }
     }
     
@@ -38,10 +38,10 @@ class Header extends React.Component {
                         placeholder="Search" 
                     />
                 </div>
-                {searchResults.length 
+                {this.state.searchResults.length 
                     ? (
-                        <ul className="searchFilter">
-                            {searchResults.map((item, idx) => (
+                        <ul className="search-filter">
+                            {this.state.searchResults.map((item, idx) => (
                                 <SearchFilterItem
                                     key={idx}
                                     ticker={item.symbol}

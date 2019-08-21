@@ -8,7 +8,7 @@ class SearchFilterItem extends React.Component {
 
   render() {
     return (
-      <NavLink className="searchFilterItem"
+      <NavLink className="search-filter-item"
         to={`/stocks/${this.props.ticker}`}>
         <p>{this.props.ticker}</p>
         <p>{this.props.exchange}</p>

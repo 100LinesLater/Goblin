@@ -49,6 +49,21 @@
     width: 400px;
 }
 
+.search-filter {
+    border-top: 1px solid $white;
+    background: lightGray;
+}
+
+.search-filter-item:not(:first-child) {
+    border-top: 1px solid darkgray;
+}
+
+.search-filter-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .header-links {
     display: flex;
     grid-column: 6;
