@@ -19,8 +19,7 @@ class HomePage extends React.Component {
 
     componentDidMount() {
         this.props.fetchPortfolios();
-        this.props.fetchNews()
-            .then(res => this.setState({newsData: res}));
+        this.props.fetchNews();
         fetchChart(this.state.ticker, this.state.interval)
             .then(res => this.setState({ data: res }))
             .then(res => this.setState({

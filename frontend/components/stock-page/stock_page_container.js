@@ -14,12 +14,13 @@ const mSTP = (state, ownProps) => ({
 });
 
 const mDTP = dispatch => ({
-    fetchTransactions: () => dispatch(fetchTransactions()),
-    createTransaction: tx => dispatch(createTransaction(tx)),
-    fetchPortfolios: () => dispatch(fetchPortfolios()),
-    createPortfolio: port => dispatch(createPortfolio(port)),
-    updatePortfolio: port => dispatch(updatePortfolio(port))
-    // getChartDataWithTag: (ticker, timeTag) => dispatch(getChartDataWithTag(ticker, timeTag)),
+  fetchNews: () => dispatch(fetchNews()),
+  fetchTransactions: () => dispatch(fetchTransactions()),
+  createTransaction: tx => dispatch(createTransaction(tx)),
+  fetchPortfolios: () => dispatch(fetchPortfolios()),
+  createPortfolio: port => dispatch(createPortfolio(port)),
+  updatePortfolio: port => dispatch(updatePortfolio(port)),
+  // getChartDataWithTag: (ticker, timeTag) => dispatch(getChartDataWithTag(ticker, timeTag)),
 });
 
 export default connect(mSTP, mDTP)(StockPage);

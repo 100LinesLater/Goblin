@@ -28,44 +28,48 @@ class Header extends React.Component {
     
     render() {
         return (
-            <div className="nav-bar">
-                <NavLink className="logo-top" to="/"></NavLink>
-                <div className="stock-search-bar">
-                    <span className="fa fa-search"></span>
-                    <input className="search-bar-input"
-                        type="text"
-                        onChange={this.handleInputChange}
-                        placeholder="Search" 
+          <div className="nav-bar">
+            <NavLink className="logo-top" to="/" />
+            <div className="stock-search">
+              <div className="stock-search-bar">
+                <span className="fa fa-search" />
+                <input
+                  className="search-bar-input"
+                  type="text"
+                  onChange={this.handleInputChange}
+                  placeholder="Search"
+                />
+              </div>
+              {this.state.searchResults.length ? (
+                <ul className="search-filter">
+                  {this.state.searchResults.map((item, idx) => (
+                    <SearchFilterItem
+                      key={idx}
+                      ticker={item.symbol}
+                      exchange={item.stock_exchange_short}
                     />
-                </div>
-                {this.state.searchResults.length 
-                    ? (
-                        <ul className="search-filter">
-                            {this.state.searchResults.map((item, idx) => (
-                                <SearchFilterItem
-                                    key={idx}
-                                    ticker={item.symbol}
-                                    exchange={item.stock_exchange_short}
-                                />
-                            ))}
-                        </ul>
-                    ) 
-                    : (<></>)}
-                <span className="header-links">
-                    <NavLink className="header-home"
-                        to="/">Home
-                        </NavLink>
-                    <button
-                        className="home-logout-button"
-                        onClick={this.props.logout}>Log Out
-                        </button>
+                  ))}
+                </ul>
+              ) : (
+                <></>
+              )}
+            </div>
+            <span className="header-links">
+              <NavLink className="header-home" to="/">
+                Home
+              </NavLink>
+              <button
+                className="home-logout-button"
+                onClick={this.props.logout}>
+                Log Out
+              </button>
 
-                    {/* <h3 className="header-name">
+              {/* <h3 className="header-name">
                         Hi, {props.currentUser.first_name} {props.currentUser.last_name}!
                         </h3>  */}
-                </span>
-            </div>
-        )
+            </span>
+          </div>
+        );
     }
 }
 
