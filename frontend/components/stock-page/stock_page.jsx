@@ -21,43 +21,48 @@ class StockPage extends React.Component {
     componentDidMount() {
         this.props.fetchPortfolios();
         this.props.fetchNews();
-        fetchCurrentPrice(this.props.ticker).then(res => this.setState({currentPrice: res, price: res}));
-        fetchChart(this.state.ticker, this.state.interval)
+        fetchCurrentPrice(this.state.ticker).then(res => this.setState({currentPrice: res, price: res}));
+        this.fetchChartNormal(this.state.ticker, this.state.interval);
+    }
+
+    componentDidUpdate(_prevProps, prevState) {
+        if (prevState.interval !== this.state.interval) {
+            this.loadChartByInterval(this.state.interval, this.state.ticker);
+        }
+    }
+
+    onChangeInterval(value) {
+        this.setState({interval: value});
+    }
+
+    loadChartByInterval(interval, ticker) {
+        if (interval === '1d') {
+            this.fetchChartDaily(ticker);
+        } else {
+            this.fetchChartNormal(ticker, interval);
+        }
+    }
+
+    fetchChartDaily(ticker) {
+        fetchIntraday(ticker)
             .then(res => this.setState({ data: res }))
             .then(res => this.setState({
                 color: [
                     (this.state.data[this.state.data.length - 1].close < this.state.data[0].close) ?
                         "#f1563a" : "#30cd9a"]
             }
-        ));
+            ));
     }
 
-    componentDidUpdate(_prevProps, prevState) {
-        if (prevState.interval !== this.state.interval) {
-            if (this.state.interval === '1d') {
-                fetchIntraday(this.state.ticker)
-                    .then(res => this.setState({ data: res }))
-                    .then(res => this.setState({
-                        color: [
-                            (this.state.data[this.state.data.length - 1].close < this.state.data[0].close) ?
-                                "#f1563a" : "#30cd9a"]
-                    }
-                ));
-            } else {
-                fetchChart(this.state.ticker, this.state.interval)
-                    .then(res => this.setState({ data: res }))
-                    .then(res => this.setState({
-                        color: [
-                            (this.state.data[this.state.data.length - 1].close < this.state.data[0].close) ?
-                                "#f1563a" : "#30cd9a"]
-                    }
-                ));
+    fetchChartNormal(ticker, interval) {
+        fetchChart(ticker, interval)
+            .then(res => this.setState({ data: res }))
+            .then(res => this.setState({
+                color: [
+                    (this.state.data[this.state.data.length - 1].close < this.state.data[0].close) ?
+                        "#f1563a" : "#30cd9a"]
             }
-        }
-    }
-
-    onChangeInterval(value) {
-        this.setState({interval: value});
+            ));
     }
 
     onInputChange() {
