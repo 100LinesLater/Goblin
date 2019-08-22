@@ -58,10 +58,13 @@
 }
 
 .search-filter {
+    position: absolute;
+    z-index: 2;
     border: 1px solid $white;
-    background-color: lightGray;
+    background: lightGray;
+    margin-top: 36px;
     margin-left: 69px;
-    margin-right: 36px;
+    width: 471px;
 }
 
 .search-filter-item:not(:first-child) {
@@ -72,13 +75,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background: inherit;
 }
 
-.search-filter-item p:first-child {
-    margin: 5px 20px;
-}
-
-.search-filter-item p:last-child {
+.search-filter-item p {
+    background: inherit;
+    color: $black;
     margin: 5px 20px;
 }
 
