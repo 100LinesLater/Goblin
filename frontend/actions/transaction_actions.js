@@ -39,12 +39,12 @@ const receiveTransaction = transaction => ({
     transaction
 });
 
-const recieveWatchlists = watchlists => ({
+const receiveWatchlists = watchlists => ({
     type: RECEIVE_WATCHLISTS,
     watchlists,
 });
 
-const recieveWatchlist = watchlist => ({
+const receiveWatchlist = watchlist => ({
     type: RECEIVE_WATCHLIST,
     watchlist,
 });
@@ -89,7 +89,12 @@ export const fetchWatchlists = () => dispatch => (
         .then(watch => dispatch(receiveWatchlists()))
 );
 
-export const fetchWatchlist = watch => dispatch => (
-    transactionUtil.fetchWatchlist(watch)
+export const createWatchlist = watch => dispatch => (
+    transactionUtil.createWatchlist(watch)
+        .then(watch => dispatch(receiveWatchlist(watch)))
+);
+
+export const removeWatchlist = watch => dispatch => (
+    transactionUtil.deleteWatchlist(watch)
         .then(watch => dispatch(receiveWatchlist(watch)))
 );

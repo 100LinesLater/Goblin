@@ -51,7 +51,7 @@ export const createTransaction = transaction => (
 );
 
 //Watchlists
-export const fetchWatchlist = () => (
+export const fetchWatchlists = () => (
     $.ajax({
         method: 'GET',
         url: `/api/watchlists`,
@@ -62,6 +62,14 @@ export const createWatchlist = watchlist => (
     $.ajax({
         method: 'POST',
         url: `/api/watchlists`,
+        data: { watchlist }
+    })
+);
+
+export const deleteWatchlist = watchlist => (
+    $.ajax({
+        method: 'DELETE',
+        url: `/api/watchlists/${watchlist}`,
         data: { watchlist }
     })
 );
