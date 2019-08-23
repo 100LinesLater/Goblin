@@ -6,6 +6,8 @@ export const RECEIVE_PORTFOLIOS = "RECEIVE_PORTFOLIOS";
 export const RECEIVE_PORTFOLIO = "RECEIVE_PORTFOLIO";
 export const RECEIVE_TRANSACTIONS = "RECEIVE_TRANSACTIONS";
 export const RECEIVE_TRANSACTION = "RECEIVE_TRANSACTION";
+export const RECEIVE_WATCHLISTS = "RECEIVE_WATCHLISTS";
+export const RECEIVE_WATCHLIST = "RECEIVE_WATCHLIST";
 
 const receiveStocks = stocks => ({
     type: RECEIVE_STOCKS,
@@ -35,6 +37,16 @@ const receiveTransactions = transactions => ({
 const receiveTransaction = transaction => ({
     type: RECEIVE_TRANSACTION,
     transaction
+});
+
+const recieveWatchlists = watchlists => ({
+    type: RECEIVE_WATCHLISTS,
+    watchlists,
+});
+
+const recieveWatchlist = watchlist => ({
+    type: RECEIVE_WATCHLIST,
+    watchlist,
 });
 
 export const fetchStocks = () => dispatch => (
@@ -70,4 +82,14 @@ export const fetchTransactions = () => dispatch => (
 export const createTransaction = (tx) => dispatch => (
     transactionUtil.createTransaction(tx)
         .then(tx => dispatch(receiveTransaction(tx)))
+);
+
+export const fetchWatchlists = () => dispatch => (
+    transactionUtil.fetchWatchlists()
+        .then(watch => dispatch(receiveWatchlists()))
+);
+
+export const fetchWatchlist = watch => dispatch => (
+    transactionUtil.fetchWatchlist(watch)
+        .then(watch => dispatch(receiveWatchlist(watch)))
 );
