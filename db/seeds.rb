@@ -9,6 +9,7 @@ User.destroy_all
 Stock.destroy_all
 Portfolio.destroy_all
 Transaction.destroy_all
+Watchlist.destroy_all
 
 user1 = User.create(last_name: "Man", first_name: "Money", email: "$Money_Man$@Goblin.com",
     password: "0123456789012345678901", buying_power: 10000)
@@ -27,3 +28,6 @@ tx1 = Transaction.create(user_id: user1.id, stock_id: stock1.id, stock_differenc
 tx2 = Transaction.create(user_id: user1.id, stock_id: stock3.id, stock_difference: 20, transaction_date: "2019-02-05")
 tx3 = Transaction.create(user_id: user1.id, stock_id: stock3.id, stock_difference: -10, transaction_date: "2019-03-01")
 tx4 = Transaction.create(user_id: user1.id, stock_id: stock2.id, stock_difference: 101, transaction_date: "2018-09-23")
+
+watch1 = Watchlist.create(user_id: user1.id, stock_id: stock1.id)
+watch2 = Watchlist.create(user_id: user1.id, stock_id: stock4.id)
