@@ -86,7 +86,7 @@ export const createTransaction = (tx) => dispatch => (
 
 export const fetchWatchlists = () => dispatch => (
     transactionUtil.fetchWatchlists()
-        .then(watch => dispatch(receiveWatchlists()))
+        .then(watch => dispatch(receiveWatchlists(watch)))
 );
 
 export const createWatchlist = watch => dispatch => (

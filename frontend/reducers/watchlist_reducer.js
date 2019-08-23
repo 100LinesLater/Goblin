@@ -3,7 +3,7 @@ import {
   RECEIVE_WATCHLIST
 } from '../actions/transaction_actions';
 
-const portfolioReducer = (oldState = [], action) => {
+const watchlistReducer = (oldState = [], action) => {
   Object.freeze(oldState);
   switch (action.type) {
     case RECEIVE_WATCHLISTS:
@@ -16,4 +16,4 @@ const portfolioReducer = (oldState = [], action) => {
   }
 };
 
-export default portfolioReducer;
+export default watchlistReducer;

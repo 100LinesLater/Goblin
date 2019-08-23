@@ -29,6 +29,10 @@ class StockPage extends React.Component {
         if (prevState.interval !== this.state.interval) {
             this.loadChartByInterval(this.state.interval, this.state.ticker);
         }
+        if (_prevProps.ticker !== this.props.ticker) {
+            fetchCurrentPrice(this.props.ticker).then(res => this.setState({ currentPrice: res, price: res }));
+            this.loadChartByInterval(this.state.interval, this.props.ticker);
+        }
     }
 
     onChangeInterval(value) {
