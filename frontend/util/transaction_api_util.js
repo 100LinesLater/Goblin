@@ -49,3 +49,19 @@ export const createTransaction = transaction => (
         data: { transaction }
     })
 );
+
+//Watchlists
+export const fetchWatchlist = () => (
+    $.ajax({
+        method: 'GET',
+        url: `/api/watchlists`,
+    })
+);
+
+export const createWatchlist = watchlist => (
+    $.ajax({
+        method: 'POST',
+        url: `/api/watchlists`,
+        data: { watchlist }
+    })
+);
