@@ -23,9 +23,11 @@ class Header extends React.Component {
             fetchSearchResults(e.target.value)
                 .then(res => this.setState({searchResults: res.data}))
                 .then(res => this.setState());
+        } else {
+            this.setState({searchResults: []});
         }
     }
-    
+
     render() {
         return (
           <div className="nav-bar">
