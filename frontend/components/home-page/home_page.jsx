@@ -2,6 +2,7 @@ import React from 'react';
 import { fetchIntraday, fetchChart } from '../../util/external_api_util';
 import PortfolioChart from './portfolio-chart';
 import PortfolioItem from './portfolio-item';
+import WatchlistItem from './watchlist-item';
 
 class HomePage extends React.Component {
 
@@ -114,8 +115,19 @@ class HomePage extends React.Component {
                             num_shares={port.num_shares}
                             />
                         );
-                    })
-                    }
+                    })}
+                    <div className="watchlist-sidebar-title">
+                        <p>Watchlist</p>
+                    </div>
+                    {this.props.watchlists.filter( watch => 
+                        watch.num_shares > 0
+                    ).map( (watch, idx) => {
+                        return (
+                            <WatchlistItem key={idx}
+                            ticker={watch.ticker}
+                            />
+                        );
+                    })}
                 </div>
 
 
