@@ -25,9 +25,10 @@ port3 = Portfolio.create(user_id: user1.id, stock_id: stock2.id, num_shares: 101
 port4 = Portfolio.create(user_id: user1.id, stock_id: stock4.id, num_shares: 13)
 
 tx1 = Transaction.create(user_id: user1.id, stock_id: stock1.id, stock_difference: 5, transaction_date: "2019-02-01")
-tx2 = Transaction.create(user_id: user1.id, stock_id: stock3.id, stock_difference: 20, transaction_date: "2019-02-05")
-tx3 = Transaction.create(user_id: user1.id, stock_id: stock3.id, stock_difference: -10, transaction_date: "2019-03-01")
+tx2 = Transaction.create(user_id: user1.id, stock_id: stock3.id, stock_difference: 20, transaction_date: "2019-03-05")
+tx3 = Transaction.create(user_id: user1.id, stock_id: stock3.id, stock_difference: -10, transaction_date: "2019-06-01")
 tx4 = Transaction.create(user_id: user1.id, stock_id: stock2.id, stock_difference: 101, transaction_date: "2018-09-23")
+tx4 = Transaction.create(user_id: user1.id, stock_id: stock4.id, stock_difference: 13, transaction_date: "2019-08-20")
 
 watch1 = Watchlist.create(user_id: user1.id, stock_id: stock1.id)
 watch2 = Watchlist.create(user_id: user1.id, stock_id: stock4.id)
