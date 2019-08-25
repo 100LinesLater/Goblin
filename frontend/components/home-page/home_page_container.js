@@ -15,6 +15,9 @@ const mSTP = state => ({
     watchlists: state.entities.watchlists.filter(watch => {
         if (watch.user_id === state.session.id) return watch;
     }),
+    transactions: state.entities.transactions.filter(tx => {
+        if (tx.user_id === state.session.id) return tx;
+    }),
     newsArticles: state.entities.news,
 });
 
