@@ -49,6 +49,7 @@ class Header extends React.Component {
                       key={idx}
                       ticker={item.symbol}
                       exchange={item.stock_exchange_short}
+                      reset={() => this.setState({searchResults: []})}
                     />
                   ))}
                 </ul>
