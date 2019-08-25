@@ -4,7 +4,7 @@ import {
     fetchTransactions, createTransaction,
     createPortfolio, fetchPortfolios,
     updatePortfolio, createWatchlist,
-    removeWatchlist,
+    removeWatchlist, fetchStocks,
 } from '../../actions/transaction_actions';
 import { fetchNews } from '../../actions/external_api_actions';
 
@@ -16,6 +16,7 @@ const mSTP = (state, ownProps) => ({
 
 const mDTP = dispatch => ({
   fetchNews: () => dispatch(fetchNews()),
+  fetchStocks: () => dispatch(fetchStocks()),
   fetchTransactions: () => dispatch(fetchTransactions()),
   createTransaction: tx => dispatch(createTransaction(tx)),
   fetchPortfolios: () => dispatch(fetchPortfolios()),

@@ -21,6 +21,7 @@ class StockPage extends React.Component {
     componentDidMount() {
         this.props.fetchPortfolios();
         this.props.fetchNews();
+        this.props.fetchStocks();
         fetchCurrentPrice(this.state.ticker).then(res => this.setState({currentPrice: res, price: res}));
         this.fetchChartNormal(this.state.ticker, this.state.interval);
     }
