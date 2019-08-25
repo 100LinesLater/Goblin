@@ -119,9 +119,7 @@ class HomePage extends React.Component {
                     <div className="portfolio-sidebar-title">
                         <p>Watchlist</p>
                     </div>
-                    {this.props.watchlists.filter( watch => 
-                        watch.num_shares > 0
-                    ).map( (watch, idx) => {
+                    {this.props.watchlists.map( (watch, idx) => {
                         return (
                             <WatchlistItem key={idx}
                             ticker={watch.ticker}
