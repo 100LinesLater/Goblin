@@ -116,7 +116,7 @@ class HomePage extends React.Component {
                             />
                         );
                     })}
-                    <div className="watchlist-sidebar-title">
+                    <div className="portfolio-sidebar-title">
                         <p>Watchlist</p>
                     </div>
                     {this.props.watchlists.filter( watch => 
