@@ -17,6 +17,7 @@ class StockPage extends React.Component {
             buySellStockAmt: 0,
             currentPrice: 0,
             currentShares: 0,
+            buyOption: true,
         };
     }
 
@@ -32,10 +33,8 @@ class StockPage extends React.Component {
         const {portfolioStock} = this.props;
         if (portfolioStock && portfolioStock.num_shares !== prevState.currentShares) {
             this.setState({ currentShares: portfolioStock.num_shares });
-            console.log(this.state.currentShares)
         } else if (!portfolioStock && prevState.currentShares) {
             this.setState({ currentShares: 0 });
-            console.log(this.state.currentShares);
         }
         if (!(this.props.ticker in this.props.stocks)) {
             createStock({ ticker: this.props.ticker });
@@ -88,7 +87,9 @@ class StockPage extends React.Component {
         return e => this.setState({buySellStockAmt: e.currentTarget.value});
     }
 
-
+    buySellOptionChange(bool) {
+        this.setState({buyOption: bool});
+    }
 
     render() {
         const marketPriceStyle = {
@@ -116,14 +117,17 @@ class StockPage extends React.Component {
 
                 <div className="stock-sidebar-main">
                     <div className="buy-sell-option">
-                        <a className="buy-word"
-                        >Buy {this.props.ticker}
-                        </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a 
-                        className="sell-word"
-                        >Sell {this.props.ticker}</a>
+                        <p className="buy-word"
+                            onClick={() => this.buySellOptionChange(true)}
+                            >Buy {this.props.ticker}
+                        </p>
+                        <p className="sell-word"
+                            onClick={() => this.buySellOptionChange(false)}
+                            >Sell {this.props.ticker}
+                        </p>
                     </div>
                     <div className="stock-shares-input">
-                        <label>Trade Shares
+                        <label>{this.state.buyOption ? "Buy" : "Sell"} Shares
                             <input 
                             type="number"
                             value={this.state.buySellStockAmt}
