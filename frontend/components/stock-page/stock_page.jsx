@@ -84,7 +84,10 @@ class StockPage extends React.Component {
     }
 
     onInputChange() {
-        return e => this.setState({buySellStockAmt: e.currentTarget.value});
+        return e => {
+            this.setState({buySellStockAmt: e.currentTarget.value});
+            this.setState({ price: e.currentTarget.value * this.state.currentPrice});
+        };
     }
 
     buySellOptionChange(bool) {
