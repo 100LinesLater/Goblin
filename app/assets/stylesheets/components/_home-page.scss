@@ -63,9 +63,9 @@
 }
 
 .portfolio-sidebar-title > p{
-    font-size: 16px;
-    margin-left: 25px;
-    margin-top: 15px;
+    font-size: calc(0.3em + 0.8vw);
+    margin-left: 1.63vw;
+    margin-top: 1vw;
 }
 
 .portfolio-stock-entry {
@@ -80,19 +80,19 @@
     background: $black;
 }
 
-.portfolio-stock-and-shares {
+.portfolio-stock-and-shares, .w {
     grid-column: 1;
     background: inherit;
-    font-size: 15px;
+    font-size: calc(0.3em + 0.7vw);
 }
 
-.p1, .p2{
-    margin-left: 25px;
+.p1, .p2, .w{
+    margin-left: 1.63vw;
     background: inherit;
 }
 
 .p2 {
-    font-size: 13px;
+    font-size: calc(0.2em + 0.6vw);
 }
 
 .portfolio-stock-daily-chart {
@@ -103,9 +103,10 @@
 
 .portfolio-stock-price {
     grid-column: 3;
-    margin-right: 15px;
+    margin-right: 1vw;
     background: inherit;
     justify-self: center;
+    font-size: calc(0.3em + 0.7vw);
 }
 
 //News Feed
