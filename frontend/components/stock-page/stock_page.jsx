@@ -16,6 +16,7 @@ class StockPage extends React.Component {
             interval: '1y',
             buySellStockAmt: 0,
             currentPrice: 0,
+            currentShares: 0,
         };
     }
 
@@ -28,6 +29,14 @@ class StockPage extends React.Component {
     }
 
     componentDidUpdate(_prevProps, prevState) {
+        const {portfolioStock} = this.props;
+        if (portfolioStock && portfolioStock.num_shares !== prevState.currentShares) {
+            this.setState({ currentShares: portfolioStock.num_shares });
+            console.log(this.state.currentShares)
+        } else if (!portfolioStock && prevState.currentShares) {
+            this.setState({ currentShares: 0 });
+            console.log(this.state.currentShares);
+        }
         if (!(this.props.ticker in this.props.stocks)) {
             createStock({ ticker: this.props.ticker });
             this.props.fetchStocks();
@@ -78,6 +87,8 @@ class StockPage extends React.Component {
     onInputChange() {
         return e => this.setState({buySellStockAmt: e.currentTarget.value});
     }
+
+
 
     render() {
         const marketPriceStyle = {

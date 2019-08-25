@@ -11,6 +11,9 @@ import { fetchNews } from '../../actions/external_api_actions';
 const mSTP = (state, ownProps) => ({
     currentUser: state.entities.users[state.session.id],
     newsArticles: state.entities.news,
+    portfolioStock: state.entities.portfolios.find(
+        port => port.ticker === ownProps.match.params.ticker
+    ),
     ticker: ownProps.match.params.ticker,
     stocks: state.entities.stocks,
 });
