@@ -54,10 +54,11 @@ export const fetchStocks = () => dispatch => (
         .then(stocks => dispatch(receiveStocks(stocks)))
 );
 
-export const createStock = (stock) => dispatch => (
-    transactionUtil.createStock(stock)
+export const createStock = (stock) => dispatch => {
+    console.log(stock);
+    return transactionUtil.createStock(stock)
         .then(stock => dispatch(receiveStock(stock)))
-);
+};
 
 export const fetchPortfolios = () => dispatch => (
     transactionUtil.fetchPortfolios()

@@ -2,6 +2,7 @@ import React from 'react';
 import { fetchChart, fetchIntraday } from '../../util/external_api_util';
 import PortfolioChart from './portfolio-chart';
 import {fetchCurrentPrice} from '../../util/external_api_util';
+import {createStock} from '../../util/transaction_api_util';
 
 class StockPage extends React.Component {
 
@@ -27,6 +28,10 @@ class StockPage extends React.Component {
     }
 
     componentDidUpdate(_prevProps, prevState) {
+        if (!(this.props.ticker in this.props.stocks)) {
+            createStock({ ticker: this.props.ticker });
+            this.props.fetchStocks();
+        }
         if (prevState.interval !== this.state.interval) {
             this.loadChartByInterval(this.state.interval, this.state.ticker);
         }

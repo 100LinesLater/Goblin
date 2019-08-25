@@ -12,6 +12,7 @@ const mSTP = (state, ownProps) => ({
     currentUser: state.entities.users[state.session.id],
     newsArticles: state.entities.news,
     ticker: ownProps.match.params.ticker,
+    stocks: state.entities.stocks,
 });
 
 const mDTP = dispatch => ({
