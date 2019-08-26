@@ -13,7 +13,6 @@
 
 class Transaction < ApplicationRecord
     validates :user_id, :stock_id, :stock_difference, :transaction_date, presence: true
-    validates :transaction_date, uniqueness: true
 
     belongs_to :user,
         foreign_key: :user_id, 

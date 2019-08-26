@@ -2,7 +2,9 @@ import React from 'react';
 import { fetchChart, fetchIntraday } from '../../util/external_api_util';
 import PortfolioChart from './portfolio-chart';
 import {fetchCurrentPrice} from '../../util/external_api_util';
-import {createStock} from '../../util/transaction_api_util';
+import {createStock, updatePortfolio, 
+        createPortfolio, createTransaction,
+        } from '../../util/transaction_api_util';
 
 class StockPage extends React.Component {
 
@@ -86,12 +88,81 @@ class StockPage extends React.Component {
     onInputChange() {
         return e => {
             this.setState({buySellStockAmt: e.currentTarget.value});
-            this.setState({ price: e.currentTarget.value * this.state.currentPrice});
+            this.setState({price: e.currentTarget.value * this.state.currentPrice});
         };
     }
 
     buySellOptionChange(bool) {
         this.setState({buyOption: bool});
+    }
+
+    placeOrder() {
+        if (this.state.buyOption) {
+            if (this.state.price <= this.props.currentUser.buying_power &&
+                            this.state.buySellStockAmt) {
+                if (this.state.currentShares) {
+                    const numShares = this.state.currentShares +
+                        this.state.buySellStockAmt;
+                    this.updatePort(
+                        this.props.currentUser.id,
+                        this.props.portfolioStock.id,
+                        numShares
+                    );
+                } else {
+                    createPortfolio({
+                      user_id: this.props.currentUser.id,
+                      stock_id: this.props.portfolioStock.id,
+                      num_shares: this.state.buySellStockAmt,
+                    });
+                }
+                this.createTx(
+                  this.props.currentUser.id,
+                  this.props.portfolioStock.id,
+                  this.state.buySellStockAmt
+                );
+                this.props.fetchPortfolios();
+            }
+        } else {
+            if (this.state.buySellStockAmt && 
+                    this.state.buySellStockAmt <= this.state.currentShares) {
+                const numShares = this.state.currentShares -
+                    this.state.buySellStockAmt;
+                this.updatePort(
+                    this.props.currentUser.id,
+                    this.props.portfolioStock.id,
+                    numShares
+                );
+            }
+            this.createTx(
+                this.props.currentUser.id,
+                this.props.portfolioStock.id,
+                -this.state.buySellStockAmt
+            );
+            this.props.fetchPortfolios();
+        }
+    }
+
+    updatePort(userId, stockId, numShares) {
+        updatePortfolio({
+            user_id: userId,
+            stock_id: stockId,
+            num_shares: numShares,
+        });
+    }
+
+    createTx(userId, stockId, stockDiff) {
+        let today = new Date();
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const yyyy = today.getFullYear();
+        today = '' + yyyy + '-' + mm + '-' + dd;
+
+        createTransaction({
+            user_id: userId,
+            stock_id: stockId,
+            stock_difference: stockDiff,
+            transaction_date: today,
+        });
     }
 
     render() {
@@ -103,7 +174,7 @@ class StockPage extends React.Component {
 
                 <div className="portfolio-chart-main">
                     <div className="portfolio-chart-price">
-                        <h1>${this.state.price.toFixed(2)}</h1>
+                        <h1>${this.state.currentPrice.toFixed(2)}</h1>
                     </div>
                     <PortfolioChart className="portfolio-chart-chart"
                         data={this.state.data}
@@ -148,7 +219,9 @@ class StockPage extends React.Component {
                         <p className="estimated-cost-cost">{`$${(this.state.buySellStockAmt * 
                         this.state.currentPrice).toFixed(2)}`}</p>
                     </div>
-                    <button className="place-order-btn">Place Order</button>
+                    <button className="place-order-btn"
+                        onClick={() => this.placeOrder()}
+                    >Place Order</button>
                     <p className="buying-power">Buying Power: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     ${this.props.currentUser.buying_power.toFixed(2)}</p>
                 </div>
