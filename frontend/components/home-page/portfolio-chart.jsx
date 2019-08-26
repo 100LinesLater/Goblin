@@ -1,6 +1,21 @@
 import React from 'react';
 import { LineChart, Line, YAxis, Tooltip, Dot } from 'recharts';
 
+let payloadPrice = null;
+
+const CustomToolTip = ({active, payload}) => {
+    if (active) {
+        payloadPrice = payload[0].payload.close;
+        return (
+            <div className="custom-tooltip">
+                <p className="date">{`${payload[0].payload.date}`}</p>
+            </div>
+        );
+    }
+
+    return null;
+};
+
 class PortfolioChart extends React.Component {
     constructor(props) {
         super(props);
@@ -26,7 +41,8 @@ class PortfolioChart extends React.Component {
                 domain={['dataMin', 'dataMax']}
                 hide={true}
                 />
-                <Tooltip />
+                <Tooltip 
+                content={<CustomToolTip external={external}/>}/>
             </LineChart >
         );
     }
