@@ -6,6 +6,7 @@ import {
     updatePortfolio, createWatchlist,
     removeWatchlist, fetchStocks,
 } from '../../actions/transaction_actions';
+import {updateUser} from '../../actions/session_actions';
 import { fetchNews } from '../../actions/external_api_actions';
 
 const mSTP = (state, ownProps) => ({
@@ -28,6 +29,7 @@ const mDTP = dispatch => ({
   updatePortfolio: port => dispatch(updatePortfolio(port)),
   createWatchlist: watch => dispatch(createWatchlist(watch)),
   removeWatchlist: watch => dispatch(removeWatchlist(watch)),
+  updateUser: user => dispatch(updateUser(user)),
   // getChartDataWithTag: (ticker, timeTag) => dispatch(getChartDataWithTag(ticker, timeTag)),
 });
 

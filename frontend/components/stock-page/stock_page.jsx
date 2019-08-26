@@ -5,6 +5,8 @@ import {fetchCurrentPrice} from '../../util/external_api_util';
 import {createStock, updatePortfolio, 
         createPortfolio, createTransaction,
         } from '../../util/transaction_api_util';
+import {updateUser} from '../../util/session_api_util';
+import {merge} from 'lodash';
 
 class StockPage extends React.Component {
 
@@ -112,7 +114,7 @@ class StockPage extends React.Component {
                 } else {
                     createPortfolio({
                       user_id: currentUser.id,
-                      stock_id: stocks[ticker]["id"],
+                      stock_id: stocks[ticker].id,
                       num_shares: buySellStockAmt,
                     });
                 }
@@ -121,7 +123,10 @@ class StockPage extends React.Component {
                   portfolioStock.stock_id,
                   buySellStockAmt
                 );
-                window.location = '/home';
+                let user = currentUser;
+                user.buying_power -= this.state.price;
+                this.props.updateUser(user);
+                window.location = '/';
             }
         } else {
             if (buySellStockAmt > 0 && buySellStockAmt <= currentShares) {
@@ -136,6 +141,9 @@ class StockPage extends React.Component {
                     portfolioStock.stock_id,
                     -buySellStockAmt
                 );
+                let user = currentUser;
+                user.buying_power += this.state.price;
+                this.props.updateUser(user);
                 window.location = '/';
             }
         }

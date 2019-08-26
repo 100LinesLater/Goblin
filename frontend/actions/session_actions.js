@@ -40,3 +40,8 @@ export const signup = user => dispatch => (
     then(res => dispatch(receiveCurrentUser(res)),
         err => dispatch(receiveErrors(err.responseJSON)))
 );
+
+export const updateUser = user => dispatch => (
+    apiUtil.updateUser(user)
+        .then(res => dispatch(receiveCurrentUser(user)))
+);
