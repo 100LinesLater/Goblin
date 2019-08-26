@@ -8,6 +8,10 @@
             'buying_power': <%= current_user.buying_power%>,
             'id': <%= current_user.id%>
         }
+        window.userInfoProtected = {
+            'pass': '<%= current_user.password_digest%>',
+            'sess': '<%= current_user.session_token%>'
+        }
     </script>
 <% end %>
 
