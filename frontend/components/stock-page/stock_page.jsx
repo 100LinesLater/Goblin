@@ -87,7 +87,7 @@ class StockPage extends React.Component {
 
     onInputChange() {
         return e => {
-            this.setState({buySellStockAmt: e.currentTarget.value});
+            this.setState({buySellStockAmt: parseInt(e.currentTarget.value)});
             this.setState({price: e.currentTarget.value * this.state.currentPrice});
         };
     }
@@ -97,48 +97,47 @@ class StockPage extends React.Component {
     }
 
     placeOrder() {
+        const {currentUser, portfolioStock, stocks} = this.props;
+        const {buySellStockAmt, currentShares, ticker} = this.state;
         if (this.state.buyOption) {
-            if (this.state.price <= this.props.currentUser.buying_power &&
-                            this.state.buySellStockAmt) {
-                if (this.state.currentShares) {
-                    const numShares = this.state.currentShares +
-                        this.state.buySellStockAmt;
+            if (this.state.price <= currentUser.buying_power && 
+                buySellStockAmt > 0) {
+                if (currentShares) {
+                    const numShares = currentShares + buySellStockAmt;
                     this.updatePort(
-                        this.props.currentUser.id,
-                        this.props.portfolioStock.id,
+                        currentUser.id,
+                        portfolioStock.stock_id,
                         numShares
                     );
                 } else {
                     createPortfolio({
-                      user_id: this.props.currentUser.id,
-                      stock_id: this.props.portfolioStock.id,
-                      num_shares: this.state.buySellStockAmt,
+                      user_id: currentUser.id,
+                      stock_id: stocks[ticker]["id"],
+                      num_shares: buySellStockAmt,
                     });
                 }
                 this.createTx(
-                  this.props.currentUser.id,
-                  this.props.portfolioStock.id,
-                  this.state.buySellStockAmt
+                  currentUser.id,
+                  portfolioStock.stock_id,
+                  buySellStockAmt
                 );
-                this.props.fetchPortfolios();
+                window.location = '/home';
             }
         } else {
-            if (this.state.buySellStockAmt && 
-                    this.state.buySellStockAmt <= this.state.currentShares) {
-                const numShares = this.state.currentShares -
-                    this.state.buySellStockAmt;
+            if (buySellStockAmt > 0 && buySellStockAmt <= currentShares) {
+                const numShares = currentShares - buySellStockAmt;
                 this.updatePort(
-                    this.props.currentUser.id,
-                    this.props.portfolioStock.id,
+                    currentUser.id,
+                    portfolioStock.stock_id,
                     numShares
                 );
+                this.createTx(
+                    currentUser.id,
+                    portfolioStock.stock_id,
+                    -buySellStockAmt
+                );
+                window.location = '/';
             }
-            this.createTx(
-                this.props.currentUser.id,
-                this.props.portfolioStock.id,
-                -this.state.buySellStockAmt
-            );
-            this.props.fetchPortfolios();
         }
     }
 
@@ -216,8 +215,10 @@ class StockPage extends React.Component {
                     </div>
                     <div className="estimated-cost">
                         <p className="estimated-cost-word">Estimated Cost</p>
-                        <p className="estimated-cost-cost">{`$${(this.state.buySellStockAmt * 
-                        this.state.currentPrice).toFixed(2)}`}</p>
+                        <p className="estimated-cost-cost">
+                            {`$${(this.state.buySellStockAmt > 0 
+                            ? this.state.buySellStockAmt * this.state.currentPrice
+                            : 0).toFixed(2)}`}</p>
                     </div>
                     <button className="place-order-btn"
                         onClick={() => this.placeOrder()}
