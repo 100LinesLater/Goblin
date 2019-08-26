@@ -1,12 +1,10 @@
 import React from 'react';
 import { fetchChart, fetchIntraday } from '../../util/external_api_util';
-import PortfolioChart from './portfolio-chart';
+import PortfolioChart from '../home-page/portfolio-chart';
 import {fetchCurrentPrice} from '../../util/external_api_util';
 import {createStock, updatePortfolio, 
         createPortfolio, createTransaction,
         } from '../../util/transaction_api_util';
-import {updateUser} from '../../util/session_api_util';
-import {merge} from 'lodash';
 
 class StockPage extends React.Component {
 
@@ -22,7 +20,9 @@ class StockPage extends React.Component {
             currentPrice: 0,
             currentShares: 0,
             buyOption: true,
+            chartToolPrice: null,
         };
+        this.priceChange = this.priceChange.bind(this);
     }
 
     componentDidMount() {
@@ -51,6 +51,9 @@ class StockPage extends React.Component {
             fetchCurrentPrice(this.props.ticker).then(res => this.setState({ currentPrice: res, price: res }));
             this.loadChartByInterval(this.state.interval, this.props.ticker);
         }
+        // if (prevState.chartToolPrice !== this.state.chartToolPrice) {
+
+        // }
     }
 
     onChangeInterval(value) {
@@ -172,6 +175,11 @@ class StockPage extends React.Component {
         });
     }
 
+    priceChange(price) {
+        debugger;
+        this.setState({chartToolPrice: price});
+    }
+
     render() {
         const marketPriceStyle = {
             color: this.state.color
@@ -181,11 +189,13 @@ class StockPage extends React.Component {
 
                 <div className="portfolio-chart-main">
                     <div className="portfolio-chart-price">
-                        <h1>${this.state.currentPrice.toFixed(2)}</h1>
+                        <h1>${(this.state.chartToolPrice ||
+                            this.state.currentPrice).toFixed(2)}</h1>
                     </div>
                     <PortfolioChart className="portfolio-chart-chart"
                         data={this.state.data}
                         color={this.state.color}
+                        priceChange={() => this.priceChange}
                     />
                     <div className="stock-chart-time-tags">
                         <li><a onClick={() => this.onChangeInterval('1d')}>{'1D'}</a></li>
