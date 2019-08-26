@@ -125,8 +125,8 @@ class StockPage extends React.Component {
                 );
                 let user = currentUser;
                 user.buying_power -= this.state.price;
-                this.props.updateUser(user);
-                window.location = '/';
+                this.props.updateUser(user)
+                    .then(window.location = '/');
             }
         } else {
             if (buySellStockAmt > 0 && buySellStockAmt <= currentShares) {
@@ -143,8 +143,8 @@ class StockPage extends React.Component {
                 );
                 let user = currentUser;
                 user.buying_power += this.state.price;
-                this.props.updateUser(user);
-                window.location = '/';
+                this.props.updateUser(user)
+                    .then(res => window.location = '/');
             }
         }
     }
