@@ -176,7 +176,6 @@ class StockPage extends React.Component {
     }
 
     priceChange(price) {
-        debugger;
         this.setState({chartToolPrice: price});
     }
 
