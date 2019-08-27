@@ -21,6 +21,7 @@ class StockPage extends React.Component {
             currentShares: 0,
             buyOption: true,
             chartToolPrice: null,
+            watchlistExists: false,
         };
         this.priceChange = this.priceChange.bind(this);
     }
@@ -29,6 +30,15 @@ class StockPage extends React.Component {
         this.props.fetchPortfolios();
         this.props.fetchNews();
         this.props.fetchStocks();
+        this.props.fetchWatchlists()
+            .then(res => {
+                if (res.watchlists.find(watch => 
+                    watch.ticker === this.props.ticker) !== undefined) {
+                    this.setState({watchlistExists: true});
+                } else {
+                    this.setState({watchlistExists: false});
+                }
+            });
         fetchCurrentPrice(this.state.ticker).then(res => this.setState({currentPrice: res, price: res}));
         this.fetchChartNormal(this.state.ticker, this.state.interval);
     }
@@ -249,7 +259,8 @@ class StockPage extends React.Component {
 
                 <div className="watchlist-add-remove">
                     <button className="watchlist-add-remove-btn" style={borderColor}>
-                        Remove from Watchlist
+                        {this.state.watchlistExists ? "Remove from" :
+                        "Add to"} Watchlist
                     </button>
                 </div>
 

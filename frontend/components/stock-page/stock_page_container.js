@@ -5,6 +5,7 @@ import {
     createPortfolio, fetchPortfolios,
     updatePortfolio, createWatchlist,
     removeWatchlist, fetchStocks,
+    fetchWatchlists,
 } from '../../actions/transaction_actions';
 import {updateUser} from '../../actions/session_actions';
 import { fetchNews } from '../../actions/external_api_actions';
@@ -15,6 +16,9 @@ const mSTP = (state, ownProps) => ({
     portfolioStock: state.entities.portfolios.find(
         port => port.ticker === ownProps.match.params.ticker
     ),
+    watchlists: state.entities.watchlists.filter(watch => {
+        if (watch.user_id === state.session.id) return watch;
+    }),
     ticker: ownProps.match.params.ticker,
     stocks: state.entities.stocks,
 });
@@ -27,6 +31,7 @@ const mDTP = dispatch => ({
   fetchPortfolios: () => dispatch(fetchPortfolios()),
   createPortfolio: port => dispatch(createPortfolio(port)),
   updatePortfolio: port => dispatch(updatePortfolio(port)),
+  fetchWatchlists: () => dispatch(fetchWatchlists()),
   createWatchlist: watch => dispatch(createWatchlist(watch)),
   removeWatchlist: watch => dispatch(removeWatchlist(watch)),
   updateUser: user => dispatch(updateUser(user)),
