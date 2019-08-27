@@ -106,3 +106,20 @@
     margin-top: 30px;
     margin-left: 20px;
 }
+
+.watchlist-add-remove {
+    grid-row: 3;
+    grid-column: 4;
+}
+
+.watchlist-add-remove-btn {
+    display: flex;
+    margin-top: 50px;
+    margin-left: 45px;
+    width: calc(4em + 10vw);
+    padding: 17.5px 0;
+    background: inherit;
+    font-size: calc(0.3em + 0.6vw);
+    border-radius: 4px;
+    justify-content: center;
+}

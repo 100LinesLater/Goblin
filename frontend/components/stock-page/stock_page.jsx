@@ -183,6 +183,9 @@ class StockPage extends React.Component {
         const marketPriceStyle = {
             color: this.state.color
         };
+        const borderColor = {
+            border: `1.5px solid ${this.state.color}`, color: this.state.color
+        };
         return (
             <div className="home-page-main">
 
@@ -244,6 +247,11 @@ class StockPage extends React.Component {
                     ${this.props.currentUser.buying_power.toFixed(2)}</p>
                 </div>
 
+                <div className="watchlist-add-remove">
+                    <button className="watchlist-add-remove-btn" style={borderColor}>
+                        Remove from Watchlist
+                    </button>
+                </div>
 
                 <div className="portfolio-news-main">
                     <h3 className="news-section-title">Recent News</h3>
