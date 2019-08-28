@@ -4,11 +4,13 @@ import { LineChart, Line, YAxis, Tooltip} from 'recharts';
 const CustomToolTip = ({active, payload, priceChange}) => {
     let payloadPrice = null;
     if (active) {
-        payloadPrice = payload[0].payload.close;
+        payloadPrice = payload[0] ? payload[0].payload.close : null;
         priceChange(payloadPrice);
         return (
             <div className="custom-tooltip">
-                <p className="date">{`${payload[0].payload.date}`}</p>
+                <p className="date">{`${
+                    payload[0] ? payload[0].payload.date : ""}`
+                    }</p>
             </div>
         );
     } else {

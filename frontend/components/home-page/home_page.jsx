@@ -15,6 +15,7 @@ class HomePage extends React.Component {
             ticker: 'goog',
             interval: '3m',
             currentPrice: 10000,
+            transactionData: [],
         };
     }
 
@@ -23,6 +24,7 @@ class HomePage extends React.Component {
         this.props.fetchWatchlists();
         this.props.fetchTransactions();
         this.props.fetchNews();
+        // Delete fetchChart once transaction array is in place
         fetchChart(this.state.ticker, this.state.interval)
             .then(res => this.setState({ data: res }))
             .then(res => this.setState({
@@ -34,7 +36,13 @@ class HomePage extends React.Component {
     }
 
     componentDidUpdate(_prevProps, prevState) {
+        const { transactions } = this.props;
+        if (transactions.length > 0) {
+
+        }
+        // portfolio total price = last entry of portfolio chart
         if (prevState.interval !== this.state.interval) {
+            // Delete fetchCharts once transaction data is in place
             if (this.state.interval === '1d') {
                 fetchIntraday(this.state.ticker)
                     .then(res => this.setState({ data: res }))
@@ -95,7 +103,6 @@ class HomePage extends React.Component {
                         color={this.state.color}
                     />
                     <div className="portfolio-chart-time-tags">
-                        <li><a onClick={() => this.onChangeInterval('1d')}>{'1D'}</a></li>
                         <li><a onClick={() => this.onChangeInterval('1m')}>{'1M'}</a></li>
                         <li><a onClick={() => this.onChangeInterval('3m')}>{'3M'}</a></li>
                         <li><a onClick={() => this.onChangeInterval('1y')}>{'1Y'}</a></li>
