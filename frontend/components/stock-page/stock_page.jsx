@@ -24,6 +24,9 @@ class StockPage extends React.Component {
             watchlistExists: false,
         };
         this.priceChange = this.priceChange.bind(this);
+        this.addRemoveWatchlist = this.addRemoveWatchlist.bind(this);
+        this.removeWatchlist = this.removeWatchlist.bind(this);
+        this.addWatchlist = this.addWatchlist.bind(this);
     }
 
     componentDidMount() {
@@ -185,6 +188,32 @@ class StockPage extends React.Component {
         });
     }
 
+    addRemoveWatchlist() {
+        if (!this.state.watchlistExists) {
+            this.addWatchlist()
+                .then(res => this.props.fetchWatchlists());
+        } else {
+            const watchlist = this.props.watchlists.find(w => 
+                w.ticker === this.props.ticker
+            );
+            this.removeWatchlist(watchlist)
+                .then(res => this.props.fetchWatchlists());
+        }
+    }
+
+    addWatchlist() {
+        const {stocks, ticker, currentUser} = this.props;
+        this.props.createWatchlist({
+            stock_id: stocks[ticker].id,
+            user_id: currentUser.id,
+        });
+    }
+
+    removeWatchlist(watchlist) {
+        delete watchlist.ticker;
+        this.props.removeWatchlist(watchlist);
+    }
+
     priceChange(price) {
         this.setState({chartToolPrice: price});
     }
@@ -258,7 +287,10 @@ class StockPage extends React.Component {
                 </div>
 
                 <div className="watchlist-add-remove">
-                    <button className="watchlist-add-remove-btn" style={borderColor}>
+                    <button className="watchlist-add-remove-btn" 
+                    style={borderColor}
+                    // onClick={this.addRemoveWatchlist}
+                    >
                         {this.state.watchlistExists ? "Remove from" :
                         "Add to"} Watchlist
                     </button>

@@ -14,7 +14,7 @@ class Api::WatchlistsController < ApplicationController
 
   def destroy
       @watchlist = Watchlist.find_by(user_id: params[:watchlist][:user_id], stock_id: params[:watchlist][:stock_id])
-      if @watchlist.destroy(watchlist_params)
+      if @watchlist.destroy
           render :index
       else
           render json: @watchlist.errors.full_messages, status: 401
