@@ -1,6 +1,7 @@
 import {
   RECEIVE_WATCHLISTS,
-  RECEIVE_WATCHLIST
+  RECEIVE_WATCHLIST, 
+  REMOVE_WATCHLIST,
 } from '../actions/transaction_actions';
 
 const watchlistReducer = (oldState = [], action) => {
@@ -10,7 +11,11 @@ const watchlistReducer = (oldState = [], action) => {
       return action.watchlists;
     case RECEIVE_WATCHLIST:
       const newState = oldState.slice();
-      return newState.push(action.watchlist);
+      newState.push(action.watchlist);
+      return newState;
+    case REMOVE_WATCHLIST:
+      const newSt = oldState.filter(watch => action.watchlist.ticker !== watch.ticker);
+      return newSt;
     default:
       return oldState;
   }

@@ -20,7 +20,7 @@ class StockPage extends React.Component {
             currentPrice: 0,
             currentShares: 0,
             buyOption: true,
-            chartToolPrice: null,
+            chartToolPrice: 0,
             watchlistExists: false,
         };
         this.priceChange = this.priceChange.bind(this);
@@ -64,9 +64,9 @@ class StockPage extends React.Component {
             fetchCurrentPrice(this.props.ticker).then(res => this.setState({ currentPrice: res, price: res }));
             this.loadChartByInterval(this.state.interval, this.props.ticker);
         }
-        // if (prevState.chartToolPrice !== this.state.chartToolPrice) {
+        if (prevState.chartToolPrice === this.state.chartToolPrice) {
 
-        // }
+        }
     }
 
     onChangeInterval(value) {
@@ -190,14 +190,13 @@ class StockPage extends React.Component {
 
     addRemoveWatchlist() {
         if (!this.state.watchlistExists) {
-            this.addWatchlist()
-                .then(res => this.props.fetchWatchlists());
+            this.addWatchlist();
+                
         } else {
             const watchlist = this.props.watchlists.find(w => 
                 w.ticker === this.props.ticker
             );
-            this.removeWatchlist(watchlist)
-                .then(res => this.props.fetchWatchlists());
+            this.removeWatchlist(watchlist);
         }
     }
 
@@ -206,12 +205,14 @@ class StockPage extends React.Component {
         this.props.createWatchlist({
             stock_id: stocks[ticker].id,
             user_id: currentUser.id,
+            ticker,
         });
+        this.setState({watchlistExists: true});
     }
 
     removeWatchlist(watchlist) {
-        delete watchlist.ticker;
         this.props.removeWatchlist(watchlist);
+        this.setState({watchlistExists: false});
     }
 
     priceChange(price) {
@@ -236,7 +237,7 @@ class StockPage extends React.Component {
                     <PortfolioChart className="portfolio-chart-chart"
                         data={this.state.data}
                         color={this.state.color}
-                        priceChange={() => this.priceChange}
+                        // priceChange={this.priceChange}
                     />
                     <div className="stock-chart-time-tags">
                         <li><a onClick={() => this.onChangeInterval('1d')}>{'1D'}</a></li>
@@ -289,7 +290,7 @@ class StockPage extends React.Component {
                 <div className="watchlist-add-remove">
                     <button className="watchlist-add-remove-btn" 
                     style={borderColor}
-                    // onClick={this.addRemoveWatchlist}
+                    onClick={this.addRemoveWatchlist}
                     >
                         {this.state.watchlistExists ? "Remove from" :
                         "Add to"} Watchlist

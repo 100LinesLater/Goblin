@@ -8,6 +8,7 @@ export const RECEIVE_TRANSACTIONS = "RECEIVE_TRANSACTIONS";
 export const RECEIVE_TRANSACTION = "RECEIVE_TRANSACTION";
 export const RECEIVE_WATCHLISTS = "RECEIVE_WATCHLISTS";
 export const RECEIVE_WATCHLIST = "RECEIVE_WATCHLIST";
+export const REMOVE_WATCHLIST = "REMOVE_WATCHLIST";
 
 const receiveStocks = stocks => ({
     type: RECEIVE_STOCKS,
@@ -46,6 +47,11 @@ const receiveWatchlists = watchlists => ({
 
 const receiveWatchlist = watchlist => ({
     type: RECEIVE_WATCHLIST,
+    watchlist,
+});
+
+const removeWatchlist = watchlist => ({
+    type: REMOVE_WATCHLIST,
     watchlist,
 });
 
@@ -89,12 +95,20 @@ export const fetchWatchlists = () => dispatch => (
         .then(watch => dispatch(receiveWatchlists(watch)))
 );
 
-export const createWatchlist = watch => dispatch => (
-    transactionUtil.createWatchlist(watch)
-        .then(watch => dispatch(receiveWatchlist(watch)))
-);
+export const createWatchlist = watch => dispatch => {
+    const watchOfficial = {};
+    Object.assign(watchOfficial, watch);
+    delete watchOfficial.ticker;
 
-export const removeWatchlist = watch => dispatch => (
-    transactionUtil.deleteWatchlist(watch)
-        .then(watch => dispatch(receiveWatchlist(watch)))
-);
+    return transactionUtil.createWatchlist(watchOfficial)
+        .then(w => dispatch(receiveWatchlist(watch)));
+};
+
+export const deleteWatchlist = watch => dispatch => {
+    const watchOfficial = {};
+    Object.assign(watchOfficial, watch);
+    delete watchOfficial.ticker;
+
+    return transactionUtil.deleteWatchlist(watchOfficial)
+        .then(w => dispatch(removeWatchlist(watch)));
+};

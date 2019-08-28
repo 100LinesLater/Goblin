@@ -4,7 +4,7 @@ import {
     fetchTransactions, createTransaction,
     createPortfolio, fetchPortfolios,
     updatePortfolio, createWatchlist,
-    removeWatchlist, fetchStocks,
+    deleteWatchlist, fetchStocks,
     fetchWatchlists,
 } from '../../actions/transaction_actions';
 import {updateUser} from '../../actions/session_actions';
@@ -33,7 +33,7 @@ const mDTP = dispatch => ({
   updatePortfolio: port => dispatch(updatePortfolio(port)),
   fetchWatchlists: () => dispatch(fetchWatchlists()),
   createWatchlist: watch => dispatch(createWatchlist(watch)),
-  removeWatchlist: watch => dispatch(removeWatchlist(watch)),
+  removeWatchlist: watch => dispatch(deleteWatchlist(watch)),
   updateUser: user => dispatch(updateUser(user)),
   // getChartDataWithTag: (ticker, timeTag) => dispatch(getChartDataWithTag(ticker, timeTag)),
 });
