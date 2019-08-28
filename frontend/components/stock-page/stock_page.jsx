@@ -64,9 +64,6 @@ class StockPage extends React.Component {
             fetchCurrentPrice(this.props.ticker).then(res => this.setState({ currentPrice: res, price: res }));
             this.loadChartByInterval(this.state.interval, this.props.ticker);
         }
-        if (prevState.chartToolPrice === this.state.chartToolPrice) {
-
-        }
     }
 
     onChangeInterval(value) {
@@ -141,8 +138,7 @@ class StockPage extends React.Component {
                 );
                 let user = currentUser;
                 user.buying_power -= this.state.price;
-                this.props.updateUser(user)
-                    .then(window.location = '/');
+                this.props.updateUser(user);
             }
         } else {
             if (buySellStockAmt > 0 && buySellStockAmt <= currentShares) {
@@ -159,8 +155,7 @@ class StockPage extends React.Component {
                 );
                 let user = currentUser;
                 user.buying_power += this.state.price;
-                this.props.updateUser(user)
-                    .then(res => window.location = '/');
+                this.props.updateUser(user);
             }
         }
     }

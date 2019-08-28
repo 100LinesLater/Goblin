@@ -65,6 +65,14 @@ class HomePage extends React.Component {
         }
     }
 
+    onChangeInterval(timeTag) {
+        //Run portfolio formula and update data.
+    }
+
+    portfolioFormula() {
+        
+    }
+
     renderArticles() {
         if (this.props.newsArticles) {
             return (
