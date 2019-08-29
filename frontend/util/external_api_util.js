@@ -25,6 +25,14 @@ export const fetchChart = (ticker, timeTag) => {
     });
 };
 
+// for portfolio calculation
+export const fetchChartNoChartInterval = (ticker, timeTag) => {
+    return $.ajax({
+      method: 'GET',
+      url: `${pathStart}/stock/${ticker}/chart/${timeTag}${apiToken}`,
+    });
+};
+
 // date = YYYYMMDD
 export const fetchChartWithDate = (ticker, date) => (
     $.ajax({
