@@ -232,6 +232,7 @@ class StockPage extends React.Component {
                     <PortfolioChart className="portfolio-chart-chart"
                         data={this.state.data}
                         color={this.state.color}
+                        interval={this.state.interval}
                         // priceChange={this.priceChange}
                     />
                     <div className="stock-chart-time-tags">

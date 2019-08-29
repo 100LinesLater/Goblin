@@ -8,7 +8,7 @@ const worldApiToken = "hY9EnOWqeuof9zXhexjNSPdqBX3Gjhf7eT9v4lw3kxct6yLEHPIPTg9rf
 export const fetchIntraday = (ticker) => (
     $.ajax({
         method: 'GET',
-        url: `${pathStart}/stock/${ticker}/intraday-prices${apiToken}&chartInterval=2`
+        url: `${pathStart}/stock/${ticker}/intraday-prices${apiToken}&chartInterval=1`
     })
 );
 
