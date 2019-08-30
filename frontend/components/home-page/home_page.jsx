@@ -1,6 +1,7 @@
 import React from 'react';
 import { 
     fetchIntraday, 
+    fetchChart,
     fetchChartWithoutChartInterval,
     } from '../../util/external_api_util';
 import PortfolioChart from './portfolio-chart';
@@ -18,7 +19,6 @@ class HomePage extends React.Component {
             ticker: 'goog',
             interval: '3m',
             currentPrice: 10000,
-            transactionData: [],
             portfolioPriceData: [],
         };
     }
@@ -81,10 +81,10 @@ class HomePage extends React.Component {
 
     portfolioFormula() {
         const stockRecord = {}; // ex: GOOG: 5, MSFT: 14
-        const stocksInTransactions = new Set(
-            this.props.transactions.map(tx => tx.ticker)
-        );
-        const allTxStockChartData;
+        // const stocksInTransactions = new Set(
+        //     this.props.transactions.map(tx => tx.ticker)
+        // );
+        let allTxStockChartData;
         //     = fillPortData(stocksInTransactions,
         //         this.state.interval
         // );
@@ -103,7 +103,7 @@ class HomePage extends React.Component {
     //         await Promise.all(() => {
     //             let promiseArr = [];
     //             stocks.forEach(stock =>
-    //                 promiseArr.push(fetchChartNoChartInterval(stock, int)
+    //                 promiseArr.push(fetchChartWithoutChartInterval(stock, int)
     //                     .then(res => stockChartData.push({ 
     //                         ticker: stock, data: res 
     //                     })))
