@@ -77,6 +77,7 @@ class HomePage extends React.Component {
 
     onChangeInterval(timeTag) {
         //Run portfolio formula and update data.
+        this.setState({interval: timeTag});
     }
 
     portfolioFormula() {
