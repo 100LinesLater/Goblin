@@ -1,5 +1,8 @@
 import React from 'react';
-import { fetchIntraday, fetchChart } from '../../util/external_api_util';
+import { 
+    fetchIntraday, 
+    fetchChartWithoutChartInterval,
+    } from '../../util/external_api_util';
 import PortfolioChart from './portfolio-chart';
 import PortfolioItem from './portfolio-item';
 import WatchlistItem from './watchlist-item';
@@ -16,6 +19,7 @@ class HomePage extends React.Component {
             interval: '3m',
             currentPrice: 10000,
             transactionData: [],
+            portfolioPriceData: [],
         };
     }
 
@@ -63,6 +67,12 @@ class HomePage extends React.Component {
                 ));
             }
         }
+        
+        // if (_prevProps.transactions && _prevProps.transactions.length > 0 &&
+        //     _prevProps.transactions[_prevProps.transactions.length].created_at !== 
+        //     this.props.transactions[this.props.transactions.length].created_at) {
+        //          this.portfolioFormula();
+        //     }
     }
 
     onChangeInterval(timeTag) {
@@ -70,7 +80,63 @@ class HomePage extends React.Component {
     }
 
     portfolioFormula() {
-        
+        const stockRecord = {}; // ex: GOOG: 5, MSFT: 14
+        const stocksInTransactions = new Set(
+            this.props.transactions.map(tx => tx.ticker)
+        );
+        const allTxStockChartData;
+        //     = fillPortData(stocksInTransactions,
+        //         this.state.interval
+        // );
+        const datesInRange = allTxStockChartData[0].data.map(
+            data => data.transaction_date
+        );
+        const portfolioPriceData = fillPortfolioPriceData(
+            this.props.transactions, datesInRange, allTxStockChartData, stockRecord
+        );
+        this.setState({portfolioPriceData});
+    }
+
+    // fillPortData (stocks, int) {
+    //     async () => {
+    //         const stockChartData = [];
+    //         await Promise.all(() => {
+    //             let promiseArr = [];
+    //             stocks.forEach(stock =>
+    //                 promiseArr.push(fetchChartNoChartInterval(stock, int)
+    //                     .then(res => stockChartData.push({ 
+    //                         ticker: stock, data: res 
+    //                     })))
+    //             );
+    //             return promiseArr;
+    //         });
+    //         return stockChartData;
+    //     }
+    // }
+
+    fillPortfolioPriceData(txs, dateRange, stockChartData, stockHash) {
+        let i = 0;
+        return dateRange.map((date, idx) => {
+            let currPrice = 0;
+
+            while (date === txs[i].transaction_date) {
+                if (stockHash.hasOwnProperty(txs[i].ticker)) {
+                    stockHash[txs[i].ticker] += txs[i].stock_diff;
+                } else {
+                    stockHash[txs[i].ticker] = txs[i].stock_diff;
+                }
+                if (stockHash[txs[i].ticker] === 0) delete stockHash[txs[i].ticker];
+                i++;
+            }
+
+            stockChartData.forEach(stock => {
+                if (stock.ticker in stockHash) {
+                    currPrice += stock.data[idx].close * stockHash[stock.ticker];
+                }
+            });
+
+            return { date, close: currPrice };
+        });
     }
 
     renderArticles() {

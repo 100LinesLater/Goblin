@@ -26,7 +26,7 @@ export const fetchChart = (ticker, timeTag) => {
 };
 
 // for portfolio calculation
-export const fetchChartNoChartInterval = (ticker, timeTag) => {
+export const fetchChartWithoutChartInterval = (ticker, timeTag) => {
     return $.ajax({
       method: 'GET',
       url: `${pathStart}/stock/${ticker}/chart/${timeTag}${apiToken}`,
