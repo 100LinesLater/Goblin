@@ -53,35 +53,17 @@ class HomePage extends React.Component {
                 ], 
                 currentPrice: portfolioPriceData[portfolioPriceData.length - 1].close
             });
-            console.log(this.state.portfolioPriceData);
         }
-        // portfolio total price = last entry of portfolio chart
         if (prevState.interval !== this.state.interval) {
-            // Delete fetchCharts once transaction data is in place
-            if (this.state.interval === '1d') {
-                fetchIntraday(this.state.ticker)
-                    .then(res => this.setState({ data: res }))
-                    .then(res => this.setState({
-                        color: [
-                            (this.state.data[this.state.data.length - 1].close < this.state.data[0].close) ?
-                                "#f1563a" : "#30cd9a"]
-                    }
-                ));
-            } else {
-                fetchChart(this.state.ticker, this.state.interval)
-                    .then(res => this.setState({ data: res }))
-                    .then(res => this.setState({
-                        color: [
-                            (this.state.data[this.state.data.length - 1].close < this.state.data[0].close) ?
-                                "#f1563a" : "#30cd9a"]
-                    }
-                ));
-            }
+            this.setState({
+                allTransactionStockChartData: [],
+                portfolioPriceData: [],
+            });
+            this.portfolioSetup();
         }
     }
 
     onChangeInterval(timeTag) {
-        //Run portfolio formula and update data.
         this.setState({interval: timeTag});
     }
 
