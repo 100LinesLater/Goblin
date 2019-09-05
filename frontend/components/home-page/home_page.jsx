@@ -17,8 +17,9 @@ class HomePage extends React.Component {
             price: 0,
             color: null,
             ticker: 'goog',
-            interval: '3m',
+            interval: '1m',
             currentPrice: 10000,
+            allTransactionStockChartData: [],
             portfolioPriceData: [],
         };
     }
@@ -41,8 +42,15 @@ class HomePage extends React.Component {
 
     componentDidUpdate(_prevProps, prevState) {
         const { transactions } = this.props;
-        if (transactions.length > 0) {
-
+        if (transactions.length && _prevProps.transactions.length !== transactions.length) {
+            this.portfolioSetup();
+        }
+        if (this.state.allTransactionStockChartData.length && 
+            this.state.allTransactionStockChartData.length !== 
+            prevState.allTransactionStockChartData.length) {
+                this.setState({
+                    portfolioPriceData: this.fillPortfolioPriceData(transactions)
+                });
         }
         // portfolio total price = last entry of portfolio chart
         if (prevState.interval !== this.state.interval) {
@@ -67,12 +75,6 @@ class HomePage extends React.Component {
                 ));
             }
         }
-        
-        // if (_prevProps.transactions && _prevProps.transactions.length > 0 &&
-        //     _prevProps.transactions[_prevProps.transactions.length].created_at !== 
-        //     this.props.transactions[this.props.transactions.length].created_at) {
-        //          this.portfolioFormula();
-        //     }
     }
 
     onChangeInterval(timeTag) {
@@ -80,57 +82,62 @@ class HomePage extends React.Component {
         this.setState({interval: timeTag});
     }
 
-    portfolioFormula() {
-        const stockRecord = {}; // ex: GOOG: 5, MSFT: 14
-        // const stocksInTransactions = new Set(
-        //     this.props.transactions.map(tx => tx.ticker)
-        // );
-        let allTxStockChartData;
-        //     = fillPortData(stocksInTransactions,
-        //         this.state.interval
-        // );
-        const datesInRange = allTxStockChartData[0].data.map(
-            data => data.transaction_date
+    portfolioSetup() {
+        let stocksInTransactions = new Set(
+            this.props.transactions.map(tx => tx.ticker)
         );
-        const portfolioPriceData = fillPortfolioPriceData(
-            this.props.transactions, datesInRange, allTxStockChartData, stockRecord
+        stocksInTransactions.forEach(stock =>
+            fetchChartWithoutChartInterval(stock, this.state.interval)
+                .then(res => this.setState({ allTransactionStockChartData:
+                    [...this.state.allTransactionStockChartData, 
+                        { ticker: stock, data: res}]
+                }))
         );
-        this.setState({portfolioPriceData});
     }
 
-    // fillPortData (stocks, int) {
-    //     async () => {
-    //         const stockChartData = [];
-    //         await Promise.all(() => {
-    //             let promiseArr = [];
-    //             stocks.forEach(stock =>
-    //                 promiseArr.push(fetchChartWithoutChartInterval(stock, int)
-    //                     .then(res => stockChartData.push({ 
-    //                         ticker: stock, data: res 
-    //                     })))
-    //             );
-    //             return promiseArr;
-    //         });
-    //         return stockChartData;
-    //     }
+    // portfolioFormula() {
+    //     const stockRecord = {}; // ex: GOOG: 5, MSFT: 14
+    //     const stocksInTransactions = new Set(
+    //         this.props.transactions.map(tx => tx.ticker)
+    //     );
+    //     let allTxStockChartData;
+    //     //     = fillTransactionStockData(stocksInTransactions,
+    //     //         this.state.interval
+    //     // );
+    //     const datesInRange = allTxStockChartData[0].data.map(
+    //         data => data.transaction_date
+    //     );
+    //     const portfolioPriceData = fillPortfolioPriceData(
+    //         this.props.transactions, datesInRange, allTxStockChartData, stockRecord
+    //     );
+    //     this.setState({portfolioPriceData});
     // }
 
-    fillPortfolioPriceData(txs, dateRange, stockChartData, stockHash) {
-        let i = 0;
-        return dateRange.map((date, idx) => {
-            let currPrice = 0;
 
-            while (date === txs[i].transaction_date) {
+    fillPortfolioPriceData(txs) {
+        const datesInRange = this.state.allTransactionStockChartData[0].data.map(
+            data => data.date
+        );
+        // Construct stockHash from transactions that came before date range
+        const stockHash = {}; // ex: GOOG: 5, MSFT: 14
+        let i = 0;
+        
+        return datesInRange.map((date, idx) => {
+            let currPrice = 0;
+            let dateInt = parseInt(date.split('-').join(''));
+
+            while (i < txs.length && dateInt >= 
+                    parseInt(txs[i].transaction_date.split('-').join(''))) {
                 if (stockHash.hasOwnProperty(txs[i].ticker)) {
-                    stockHash[txs[i].ticker] += txs[i].stock_diff;
+                    stockHash[txs[i].ticker] += txs[i].stock_difference;
                 } else {
-                    stockHash[txs[i].ticker] = txs[i].stock_diff;
+                    stockHash[txs[i].ticker] = txs[i].stock_difference;
                 }
                 if (stockHash[txs[i].ticker] === 0) delete stockHash[txs[i].ticker];
                 i++;
             }
 
-            stockChartData.forEach(stock => {
+            this.state.allTransactionStockChartData.forEach(stock => {
                 if (stock.ticker in stockHash) {
                     currPrice += stock.data[idx].close * stockHash[stock.ticker];
                 }
