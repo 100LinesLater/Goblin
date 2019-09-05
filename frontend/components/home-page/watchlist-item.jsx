@@ -7,7 +7,7 @@ class WatchlistItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPrice: null,
+      currentPrice: 0,
     };
   }
 
@@ -28,7 +28,7 @@ class WatchlistItem extends React.Component {
                     /> */} Stock Chart Here
                 </div>
         <div className="portfolio-stock-price">
-          {`$${this.state.currentPrice}`}
+          {`$${this.state.currentPrice.toFixed(2)}`}
         </div>
       </NavLink>
     );
