@@ -31,7 +31,7 @@ class Header extends React.Component {
     render() {
         return (
           <div className="nav-bar">
-            <NavLink className="logo-top" to="/" />
+            <a className="logo-top" onClick={() => (window.location = '/')} />
             <div className="stock-search">
               <div className="stock-search-bar">
                 <span className="fa fa-search" />
@@ -58,9 +58,11 @@ class Header extends React.Component {
               )}
             </div>
             <span className="header-links">
-              <NavLink className="header-home" to="/">
+              <a
+                className="header-home"
+                onClick={() => (window.location = '/')}>
                 Home
-              </NavLink>
+              </a>
               <button
                 className="home-logout-button"
                 onClick={this.props.logout}>

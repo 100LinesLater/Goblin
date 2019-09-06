@@ -25,6 +25,7 @@ class HomePage extends React.Component {
     }
 
     componentDidMount() {
+        console.log(this.state.activePortfolioStocks);
         this.props.fetchPortfolios();
         this.props.fetchWatchlists();
         this.props.fetchTransactions();
@@ -34,8 +35,7 @@ class HomePage extends React.Component {
     componentDidUpdate(_prevProps, prevState) {
         const { transactions, portfolios, watchlists } = this.props;
         const { allTransactionStockChartData, 
-            stocksInTransactions, portfolioPriceData,
-            watchlistItemData, portfolioItemData} = this.state;
+            stocksInTransactions, portfolioPriceData} = this.state;
         if (transactions.length && _prevProps.transactions.length !== transactions.length) {
             this.portfolioSetup();
         }
@@ -66,9 +66,7 @@ class HomePage extends React.Component {
         }
         if (portfolios.length && portfolios.length !== _prevProps.portfolios.length) {
             const activePortfolioStocks = portfolios.filter(port => port.num_shares > 0);
-            this.setState({
-                activePortfolioStocks
-            });
+            this.setState({activePortfolioStocks});
             this.fillPortfolioItems(activePortfolioStocks);
         }
         if (watchlists.length && watchlists.length !== _prevProps.watchlists.length) {
@@ -179,8 +177,8 @@ class HomePage extends React.Component {
     render() {
         const {watchlists} = this.props;
         const {currentPrice, portfolioPriceData, color,
-                activePortfolioStocks, portfolioItemData,
-                watchlistItemData} = this.state;
+               portfolioItemData, watchlistItemData,
+               activePortfolioStocks} = this.state;
         return (
             <div className="home-page-main">
 
@@ -188,10 +186,11 @@ class HomePage extends React.Component {
                     <div className="portfolio-chart-price">
                         <h1>${currentPrice.toFixed(2)}</h1>
                     </div>
-                    <PortfolioChart className="portfolio-chart-chart"
+                    {portfolioPriceData.length ?
+                    (<PortfolioChart className="portfolio-chart-chart"
                         data={portfolioPriceData} 
                         color={color}
-                    />
+                    />) : ("")}
                     <div className="portfolio-chart-time-tags">
                         <li><a onClick={() => this.onChangeInterval('1m')}>{'1M'}</a></li>
                         <li><a onClick={() => this.onChangeInterval('3m')}>{'3M'}</a></li>
@@ -206,7 +205,8 @@ class HomePage extends React.Component {
                     </div>
                     {activePortfolioStocks.map( (port, idx) => {
                         let data;
-                        if (activePortfolioStocks.length === portfolioItemData.length) {
+                        if (activePortfolioStocks.length &&
+                            activePortfolioStocks.length === portfolioItemData.length) {
                             data = portfolioItemData.find(
                                 item => item.ticker === port.ticker,
                             ).data;
