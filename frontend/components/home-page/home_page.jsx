@@ -1,7 +1,6 @@
 import React from 'react';
 import { 
-    fetchIntraday, 
-    fetchChart,
+    fetchIntraday,
     fetchChartWithoutChartInterval,
     } from '../../util/external_api_util';
 import PortfolioChart from './portfolio-chart';
@@ -19,6 +18,9 @@ class HomePage extends React.Component {
             stocksInTransactions: {},
             allTransactionStockChartData: [],
             portfolioPriceData: [],
+            activePortfolioStocks: [],
+            portfolioItemData: [],
+            watchlistItemData: [],
         };
     }
 
@@ -30,9 +32,10 @@ class HomePage extends React.Component {
     }
 
     componentDidUpdate(_prevProps, prevState) {
-        const { transactions } = this.props;
+        const { transactions, portfolios, watchlists } = this.props;
         const { allTransactionStockChartData, 
-            stocksInTransactions, portfolioPriceData} = this.state;
+            stocksInTransactions, portfolioPriceData,
+            watchlistItemData, portfolioItemData} = this.state;
         if (transactions.length && _prevProps.transactions.length !== transactions.length) {
             this.portfolioSetup();
         }
@@ -45,14 +48,14 @@ class HomePage extends React.Component {
         }
         if (portfolioPriceData.length &&
             portfolioPriceData.length !== prevState.portfolioPriceData.length) {
-            this.setState({
-                color: [
-                (portfolioPriceData[portfolioPriceData.length - 1].close < 
-                    portfolioPriceData[0].close) ?
-                        "#f1563a" : "#30cd9a"
-                ], 
-                currentPrice: portfolioPriceData[portfolioPriceData.length - 1].close
-            });
+                this.setState({
+                    color: [
+                        (portfolioPriceData[portfolioPriceData.length - 1].close < 
+                            portfolioPriceData[0].close) ?
+                            "#f1563a" : "#30cd9a"
+                        ], 
+                    currentPrice: portfolioPriceData[portfolioPriceData.length - 1].close
+                });
         }
         if (prevState.interval !== this.state.interval) {
             this.setState({
@@ -61,12 +64,22 @@ class HomePage extends React.Component {
             });
             this.portfolioSetup();
         }
+        if (portfolios.length && portfolios.length !== _prevProps.portfolios.length) {
+            const activePortfolioStocks = portfolios.filter(port => port.num_shares > 0);
+            this.setState({
+                activePortfolioStocks
+            });
+            this.fillPortfolioItems(activePortfolioStocks);
+        }
+        if (watchlists.length && watchlists.length !== _prevProps.watchlists.length) {
+            this.fillWatchlistItems();
+        }
     }
-
+                    
     onChangeInterval(timeTag) {
         this.setState({interval: timeTag});
     }
-
+                    
     portfolioSetup() {
         let stocksInTransactions = new Set(
             this.props.transactions.map(tx => tx.ticker)
@@ -79,6 +92,30 @@ class HomePage extends React.Component {
                         { ticker: stock, data: res}]
                 }))
         );
+    }
+
+    fillPortfolioItems(portItemStocks) {
+        for (let i = 0; i < portItemStocks.length; i++) {
+            const stock = portItemStocks[i];
+            fetchIntraday(stock.ticker)
+                .then(res => this.setState({
+                    portfolioItemData:
+                        [...this.state.portfolioItemData,
+                        { ticker: stock.ticker, data: res }]
+                }));
+        }
+    }
+
+    fillWatchlistItems() {
+        this.props.watchlists.forEach(watch => {
+            fetchIntraday(watch.ticker)
+                .then(res => this.setState({
+                    watchlistItemData: [
+                        ...this.state.watchlistItemData,
+                        {ticker: watch.ticker, data: res}
+                    ],
+                }));
+        });
     }
 
     fillPortfolioPriceData(txs) {
@@ -140,8 +177,10 @@ class HomePage extends React.Component {
     }
 
     render() {
-        const {portfolios, watchlists} = this.props;
-        const {currentPrice, portfolioPriceData, color} = this.state;
+        const {watchlists} = this.props;
+        const {currentPrice, portfolioPriceData, color,
+                activePortfolioStocks, portfolioItemData,
+                watchlistItemData} = this.state;
         return (
             <div className="home-page-main">
 
@@ -165,13 +204,21 @@ class HomePage extends React.Component {
                     <div className="portfolio-sidebar-title">
                         <p>Stocks</p>
                     </div>
-                    {portfolios.filter( port => 
-                        port.num_shares > 0
-                    ).map( (port, idx) => {
+                    {activePortfolioStocks.map( (port, idx) => {
+                        let data;
+                        if (activePortfolioStocks.length === portfolioItemData.length) {
+                            data = portfolioItemData.find(
+                                item => item.ticker === port.ticker,
+                            ).data;
+                        } else {
+                            data = null;
+                        }
+
                         return (
                             <PortfolioItem key={idx}
                             ticker={port.ticker}
                             num_shares={port.num_shares}
+                            data={data}
                             />
                         );
                     })}
@@ -179,9 +226,19 @@ class HomePage extends React.Component {
                         <p>Watchlist</p>
                     </div>
                     {watchlists.map( (watch, idx) => {
+                        let data;
+                        if (watchlists.length === watchlistItemData.length) {
+                            data = watchlistItemData.find(
+                                item => item.ticker === watch.ticker
+                            ).data;
+                        } else {
+                            data = null;
+                        }
+                        
                         return (
                             <WatchlistItem key={idx}
                             ticker={watch.ticker}
+                            data={data}
                             />
                         );
                     })}

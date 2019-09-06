@@ -17,18 +17,23 @@ class PortfolioItem extends React.Component {
     }
 
     render() { 
+        const {data, ticker, num_shares} = this.props;
+        const color = data ? (data[0].close > data[data.length - 1].close ? 
+            '#f1563a' : '#30cd9a') : null;
         return (
             <NavLink className="portfolio-stock-entry"
-                to={`/stocks/${this.props.ticker}`}
+                to={`/stocks/${ticker}`}
             >
                 <div className="portfolio-stock-and-shares">
-                    <p className="p1">{this.props.ticker}</p>
-                    <p className="p2">{`${this.props.num_shares} shares`}</p>
+                    <p className="p1">{ticker}</p>
+                    <p className="p2">{`${num_shares} shares`}</p>
                 </div>
                 <div className="portfolio-stock-daily-chart">
-                    {/* <PortfolioStockChart
-                        ticker={this.props.ticker}
-                    /> */} Stock Chart Here 
+                    {data ?
+                    (<PortfolioStockChart
+                        data={data}
+                        color={color}
+                    />) : ("")}
                 </div>
                 <div className="portfolio-stock-price">
                     {`$${this.state.currentPrice.toFixed(2)}`}

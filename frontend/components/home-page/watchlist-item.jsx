@@ -17,16 +17,21 @@ class WatchlistItem extends React.Component {
   }
 
   render() {
+    const {data, ticker} = this.props;
+    const color = data ? (data[0].close > data[data.length - 1].close ? 
+      '#f1563a' : '#30cd9a') : null;
     return (
       <NavLink className="portfolio-stock-entry"
-        to={`/stocks/${this.props.ticker}`}
+        to={`/stocks/${ticker}`}
       >
-        <p className="w">{this.props.ticker}</p>
+        <p className="w">{ticker}</p>
         <div className="portfolio-stock-daily-chart">
-          {/* <PortfolioStockChart
-                        ticker={this.props.ticker}
-                    /> */} Stock Chart Here
-                </div>
+          {data ? 
+          (<PortfolioStockChart
+            data={data}
+            color={color}
+          />) : ("")}
+        </div>
         <div className="portfolio-stock-price">
           {`$${this.state.currentPrice.toFixed(2)}`}
         </div>
