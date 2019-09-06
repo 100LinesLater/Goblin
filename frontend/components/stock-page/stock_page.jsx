@@ -117,8 +117,8 @@ class StockPage extends React.Component {
         if (this.state.buyOption) {
             if (this.state.price <= currentUser.buying_power && 
                 buySellStockAmt > 0) {
+                const numShares = currentShares + buySellStockAmt;
                 if (currentShares) {
-                    const numShares = currentShares + buySellStockAmt;
                     this.updatePort(
                         currentUser.id,
                         portfolioStock.stock_id,
@@ -133,12 +133,13 @@ class StockPage extends React.Component {
                 }
                 this.createTx(
                   currentUser.id,
-                  portfolioStock.stock_id,
+                  stocks[ticker].id,
                   buySellStockAmt
                 );
                 let user = currentUser;
                 user.buying_power -= this.state.price;
                 this.props.updateUser(user);
+                this.setState({currentShares: numShares});
             }
         } else {
             if (buySellStockAmt > 0 && buySellStockAmt <= currentShares) {
@@ -156,6 +157,7 @@ class StockPage extends React.Component {
                 let user = currentUser;
                 user.buying_power += this.state.price;
                 this.props.updateUser(user);
+                this.setState({currentShares: numShares});
             }
         }
     }
