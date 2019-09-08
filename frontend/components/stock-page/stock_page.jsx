@@ -227,6 +227,7 @@ class StockPage extends React.Component {
             <div className="home-page-main">
 
                 <div className="portfolio-chart-main">
+                    <h2 className="stock-ticker-title">{this.state.ticker}</h2>
                     <div className="portfolio-chart-price">
                         <h1>${(this.state.chartToolPrice ||
                             this.state.currentPrice).toFixed(2)}</h1>
