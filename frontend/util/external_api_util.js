@@ -46,6 +46,14 @@ export const fetchCurrentPrice = (ticker) => (
         url: `${pathStart}/stock/${ticker}/price${apiToken}`
     })
 );
+// Stock info 
+export const fetchStockInfo = (ticker) => (
+    $.ajax({
+        method: 'GET',
+        url: `${pathStart}/stock/${ticker}/company${apiToken}`
+    })
+);
+
 // Finance News
 export const fetchNews = () => (
     $.ajax({
