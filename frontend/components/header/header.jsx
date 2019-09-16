@@ -21,8 +21,7 @@ class Header extends React.Component {
         this.setState({ searchTerm: e.target.value });
         if (e.target.value !== "") {
             fetchSearchResults(e.target.value)
-                .then(res => this.setState({searchResults: res.data}))
-                .then(res => this.setState());
+                .then(res => this.setState({searchResults: res.data}));
         } else {
             this.setState({searchResults: []});
         }
