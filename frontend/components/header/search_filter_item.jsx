@@ -7,15 +7,21 @@ class SearchFilterItem extends React.Component {
   }
 
   render() {
+    const {name, exchange, ticker} = this.props;
     return (
-      <NavLink className="search-filter-item"
+      <NavLink
+        className="search-filter-item"
         to={`/stocks/${this.props.ticker}`}
         onClick={this.props.reset}>
-        <p>{this.props.ticker}</p>
-        <p>{this.props.exchange}</p>
+        <p>
+          {ticker + ' : ' + (name.length > 12
+            ? name.slice(0, 12) + '...'
+            : name)}
+        </p>
+        <p>{exchange}</p>
         {/* <p className="searchFilterItemSymbol">{this.props.ticker}</p> */}
       </NavLink>
-    )
+    );
   }
 }
 
