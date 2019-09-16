@@ -1,5 +1,6 @@
 import React from 'react';
-import { fetchChart, fetchIntraday } from '../../util/external_api_util';
+import { fetchChart, fetchIntraday,
+         fetchStockInfo } from '../../util/external_api_util';
 import PortfolioChart from '../home-page/portfolio-chart';
 import {fetchCurrentPrice} from '../../util/external_api_util';
 import {createStock, updatePortfolio, 
@@ -22,6 +23,7 @@ class StockPage extends React.Component {
             buyOption: true,
             chartToolPrice: 0,
             watchlistExists: false,
+            stockInfo: null,
         };
         this.priceChange = this.priceChange.bind(this);
         this.addRemoveWatchlist = this.addRemoveWatchlist.bind(this);
@@ -44,6 +46,8 @@ class StockPage extends React.Component {
             });
         fetchCurrentPrice(this.state.ticker).then(res => this.setState({currentPrice: res, price: res}));
         this.fetchChartNormal(this.state.ticker, this.state.interval);
+        fetchStockInfo(this.props.ticker)
+            .then(res => this.setState({stockInfo: res}));
     }
 
     componentDidUpdate(_prevProps, prevState) {
@@ -227,7 +231,12 @@ class StockPage extends React.Component {
             <div className="home-page-main">
 
                 <div className="portfolio-chart-main">
-                    <h2 className="stock-ticker-title">{this.state.ticker}</h2>
+                    <h2 className="stock-ticker-title">
+                        {this.state.stockInfo && this.state.stockInfo.companyName
+                            ? this.state.stockInfo.companyName
+                            : this.state.ticker
+                        }
+                    </h2>
                     <div className="portfolio-chart-price">
                         <h1>${(this.state.chartToolPrice ||
                             this.state.currentPrice).toFixed(2)}</h1>
