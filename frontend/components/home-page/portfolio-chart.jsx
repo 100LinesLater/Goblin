@@ -9,8 +9,11 @@ const CustomToolTip = ({active, payload, priceChange, interval}) => {
         return (
             <div className="custom-tooltip">
                 <p className="date">{`${payload[0] ? 
-                    (interval === '1d' ? payload[0].payload.minute :
-                    payload[0].payload.date) : ""}`}
+                    (interval === '1d' ? "Time: " + payload[0].payload.minute :
+                    "Date: " + payload[0].payload.date) : ""}`}
+                </p>
+                <p>
+                    Price: {payload[0] ? "$" + payload[0].payload.close.toFixed(2) : ""}
                 </p>
             </div>
         );
