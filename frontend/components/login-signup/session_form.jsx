@@ -2,7 +2,7 @@ import React from 'react';
 import {NavLink, withRouter} from 'react-router-dom';
 
 let login = {email: '', password: ''};
-let signup = {first_name: '', last_name: '', email: '', password: '', buying_power: 0};
+let signup = {first_name: '', last_name: '', email: '', password: '', buying_power: 10000};
 let demo;
 
 class SessionForm extends React.Component {
