@@ -44,7 +44,5 @@ onChangeInterval(value) {
 ```
 
 ### Future Features:
-* Implement Transactions and Watchlists
-* Search for stocks via search bar 
 * Supply stock info
 * Account details, history, and settings
