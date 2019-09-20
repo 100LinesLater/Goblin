@@ -4,7 +4,7 @@ Goblin is a Robinhood clone, a stock and equities trading platform that offers f
 
 [Live Site](https://goblin-project.herokuapp.com/#/home)
 
-![Stock Page Image](public/stock-page-screenshot.png)
+![Stock Page Image](Goblin-Screenshot.png)
 
 Goblin uses the following <b>technologies</b> in its implemenation:
 * Database: Postgresql
