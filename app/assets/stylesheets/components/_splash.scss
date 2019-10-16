@@ -100,5 +100,6 @@
     grid-column: 2;
     background-image: url('https://d2ue93q3u507c2.cloudfront.net/assets-about/6b2e66f81aef0f0d7dbeef37392e0eca.png');
     background-size: cover;
-    height: 700px;
+    height: calc(70vh + 10em);
+    width: calc(50vw + 10em);
 }
