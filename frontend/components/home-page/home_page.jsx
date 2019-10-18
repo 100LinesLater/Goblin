@@ -25,7 +25,6 @@ class HomePage extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.state.activePortfolioStocks);
         this.props.fetchPortfolios();
         this.props.fetchWatchlists();
         this.props.fetchTransactions();
@@ -117,6 +116,7 @@ class HomePage extends React.Component {
     }
 
     fillPortfolioPriceData(txs) {
+        // Plots all the dates in the selected time interval
         const datesInRange = this.state.allTransactionStockChartData[0].data.map(
             data => data.date
         );
@@ -128,6 +128,8 @@ class HomePage extends React.Component {
             let currPrice = 0;
             let dateInt = parseInt(date.split('-').join(''));
 
+            // Used to account for multiple transactions on a date and to 
+            // account for all txs before first day in interval
             while (i < txs.length && dateInt >= 
                     parseInt(txs[i].transaction_date.split('-').join(''))) {
                 if (stockHash.hasOwnProperty(txs[i].ticker)) {
@@ -181,7 +183,6 @@ class HomePage extends React.Component {
                activePortfolioStocks} = this.state;
         return (
             <div className="home-page-main">
-
                 <div className="portfolio-chart-main">
                     <div className="portfolio-chart-price">
                         <h1>${currentPrice.toFixed(2)}</h1>
@@ -197,7 +198,6 @@ class HomePage extends React.Component {
                         <li><a onClick={() => this.onChangeInterval('1y')}>{'1Y'}</a></li>
                     </div>
                 </div>
-                
 
                 <div className="portfolio-sidebar-main">
                     <div className="portfolio-sidebar-title">
@@ -243,7 +243,6 @@ class HomePage extends React.Component {
                         );
                     })}
                 </div>
-
 
                 <div className="portfolio-news-main">
                     <h3 className="news-section-title">Recent News</h3>
